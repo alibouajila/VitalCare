@@ -1,0 +1,15 @@
+node_modules/
+npm-debug.log
+.env
+# Logs
+logs/
+*.log
+npm-debug.log*
+
+.DS_Store
+Thumbs.db
+ehthumbs.db
+# Build outputs
+build/
+dist/
+.cache/
