@@ -5,7 +5,10 @@ const { verifyToken } =require('./middlewares/auth') ;
 const utilisateur=require("./routes/utilisateur")
 const Utilisateur = require('./models/utilisateur')
 const app = express();
-app.use(cors());
+app.use(cors({
+  origin: "http://localhost:3000", 
+  credentials: true,
+}));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use("/user",utilisateur)

@@ -19,7 +19,6 @@ const utilisateurSchema = new mongoose.Schema({
   num: {
     type: String,
     required: true,
-    match: [/^\+?\d{8,15}$/, "Numéro de téléphone invalide"]
   },
   email: {
     type: String,
@@ -27,7 +26,6 @@ const utilisateurSchema = new mongoose.Schema({
     unique: true,
     trim: true,
     lowercase: true,
-    match: [/^\S+@\S+\.\S+$/, "Veuillez entrer un email valide"]
   },
   password: {
     type: String,
