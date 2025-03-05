@@ -35,7 +35,52 @@ router.post("/add", verifyToken, async (req, res) => {
     res.status(500).json({ message: "Erreur serveur. Veuillez réessayer plus tard.", error: error.message });
   }
 });
+router.delete("/delete/:id", verifyToken, async (req, res) => {
+  try {
+    if (req.user.type !== "medecin") {
+      return res.status(403).json({ message: "Accès refusé. Seuls les médecins peuvent supprimer un dossier patient." });
+    }
+    const ficheToDelete = await FichePatient.findByIdAndDelete(req.params.id);
 
+    if (!ficheToDelete) {
+      return res.status(404).json({ message: "Dossier patient non trouvé." });
+    }
 
+    res.status(200).json({ message: "Dossier patient supprimé avec succès." });
+  } catch (error) {
+    console.error("❌ Erreur lors de la suppression du dossier patient:", error);
+    res.status(500).json({ message: "Erreur serveur. Veuillez réessayer plus tard.", error: error.message });
+  }
+});
+router.get("/all", verifyToken, async (req, res) => {
+  try {
+    const fiches = await FichePatient.find();
+
+    if (fiches.length === 0) {
+      return res.status(404).json({ message: "Aucun dossier patient trouvé." });
+    }
+
+    res.status(200).json({ message: "Dossiers patients récupérés avec succès.", fiches });
+  } catch (error) {
+    console.error("❌ Erreur lors de la récupération des dossiers patients:", error);
+    res.status(500).json({ message: "Erreur serveur. Veuillez réessayer plus tard.", error: error.message });
+  }
+});
+router.get("/:cin", verifyToken, async (req, res) => {
+  try {
+    const { cin } = req.params;
+
+    const fiche = await FichePatient.findOne({ numeroDossier: cin });
+
+    if (!fiche) {
+      return res.status(404).json({ message: "Aucun dossier trouvé pour ce CIN." });
+    }
+
+    res.status(200).json({ message: "Dossier patient récupéré avec succès.", fiche });
+  } catch (error) {
+    console.error("❌ Erreur lors de la récupération du dossier patient:", error);
+    res.status(500).json({ message: "Erreur serveur. Veuillez réessayer plus tard.", error: error.message });
+  }
+});
 
 module.exports = router;
