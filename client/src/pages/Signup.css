@@ -3,9 +3,9 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    height: calc(100vh - 60px); /* Adjust the height to take navbar height into account */
-    margin-top: 60px; /* Add space for the navbar to avoid sticking */
-    padding: 20px; /* Add padding around the container */
+    height: calc(100vh - 60px); 
+    margin-top: 60px; 
+    padding: 20px; 
   }
   
   .signup-form {
@@ -15,11 +15,11 @@
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
     text-align: center;
     width: 100%;
-    max-width: 400px; /* Set a max-width to prevent the form from being too wide */
+    max-width: 400px;
   }
   
   .signup-form h2 {
-    color: #00a8ff; /* Medical Blue */
+    color: #00a8ff; 
     margin-bottom: 20px;
   }
   
@@ -36,7 +36,7 @@
   button {
     width: 80%;
     padding: 10px;
-    background: #00a8ff; /* Light Blue */
+    background: #00a8ff; 
     border: none;
     color: white;
     font-size: 18px;

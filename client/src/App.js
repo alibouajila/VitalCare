@@ -3,7 +3,8 @@ import Navbar from "./components/Navbar";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
-
+import Anesthesiste from "./pages/Anesthesiste"
+import Medecin  from "./pages/Medecin";
 function App() {
   return (
     <Router>
@@ -12,6 +13,9 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
+        <Route path="/anesthesiste" element={<Anesthesiste />} />
+        <Route path="/medecin" element={<Medecin />} />
+
       </Routes>
     </Router>
   );

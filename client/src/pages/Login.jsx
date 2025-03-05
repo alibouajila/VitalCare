@@ -21,10 +21,13 @@ const Login = () => {
       );
 
       localStorage.setItem("accessToken", response.data.accessToken);
-
+      const userType = response.data.type;
+      if (userType === "medecin") {
+        navigate("/medecin");
+      } else  {
+        navigate("/anesthesiste");
+      } 
       window.dispatchEvent(new Event("storage"));
-
-      navigate("/"); 
     } catch (error) {
       setError(error.response?.data?.message || "Login failed");
     }
@@ -51,7 +54,7 @@ const Login = () => {
         />
         <button type="submit">Login</button>
         <p className="login-link">
-          Dont you have an account? <a href="/Signup">Signup here</a>
+          Don't you have an account? <a href="/Signup">Signup here</a>
         </p>
       </form>
     </div>

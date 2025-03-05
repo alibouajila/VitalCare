@@ -2,8 +2,8 @@ const express = require("express");
 const mongoose = require("mongoose");
 const cors = require('cors');
 const { verifyToken } =require('./middlewares/auth') ;
-const utilisateur=require("./routes/utilisateur")
-const Utilisateur = require('./models/utilisateur')
+const utilisateur=require("./routes/utilisateur");
+const FichePatient = require("./routes/fiche");
 const app = express();
 app.use(cors({
   origin: "http://localhost:3000", 
@@ -12,6 +12,7 @@ app.use(cors({
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use("/user",utilisateur)
+app.use("/fiche",FichePatient)
 // Connect to MongoDB
 mongoose.connect("mongodb://localhost:27017/Hospital", {
 })

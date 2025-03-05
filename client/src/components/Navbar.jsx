@@ -6,6 +6,12 @@ const Navbar = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem("accessToken"));
   const navigate = useNavigate();
 
+  const handleLogout = () => {
+    localStorage.removeItem("accessToken");
+    setIsLoggedIn(false); // Update the state immediately after logout
+    navigate("/login");   // Redirect to the login page
+  };
+
   useEffect(() => {
     const handleAuthChange = () => {
       setIsLoggedIn(!!localStorage.getItem("accessToken"));
@@ -15,16 +21,6 @@ const Navbar = () => {
 
     return () => window.removeEventListener("storage", handleAuthChange);
   }, []);
-
-  const handleLogout = () => {
-    localStorage.removeItem("accessToken");
-    setIsLoggedIn(false);
-
-    // Dispatch event to notify other components
-    window.dispatchEvent(new Event("storage"));
-
-    navigate("/login");
-  };
 
   return (
     <nav className="navbar">
@@ -37,7 +33,10 @@ const Navbar = () => {
         </li>
         {isLoggedIn ? (
           <li>
-            <Link to="#" onClick={handleLogout} className="logout-link">
+            <Link   onClick={(e) => {
+    e.preventDefault(); 
+    handleLogout()
+  }} className="logout-link">
               Logout
             </Link>
           </li>

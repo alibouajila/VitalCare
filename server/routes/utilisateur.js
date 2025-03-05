@@ -58,13 +58,13 @@ router.post("/login", async (req, res) => {
 
     // Generate tokens
     const accessToken = jwt.sign(
-      { id: utilisateur._id, email: utilisateur.email, type: utilisateur.type },
+      { id: utilisateur._id, email: utilisateur.email, type: utilisateur.type,nom:utilisateur.nom,prenom:utilisateur.prenom },
       ACCESS_TOKEN_SECRET,
       { expiresIn: "1h" }
     );
 
     const refreshToken = jwt.sign(
-      { id: utilisateur._id, email: utilisateur.email },
+      { id: utilisateur._id, email: utilisateur.email, type:utilisateur.type,nom:utilisateur.nom,prenom:utilisateur.prenom },
       REFRESH_TOKEN_SECRET,
       { expiresIn: "7d" }
     );
@@ -79,7 +79,8 @@ router.post("/login", async (req, res) => {
 
     res.status(200).json({
       message: "Login successful",
-      accessToken, // Send access token to store in localStorage
+      accessToken,
+      type: utilisateur.type
     });
   } catch (error) {
     res.status(500).json({ error: error.message });

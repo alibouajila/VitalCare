@@ -1,17 +1,32 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { jwtDecode } from "jwt-decode";
 import "./Home.css";
 
-const HomePage = () => {
+const Home = () => {
   const navigate = useNavigate();
 
-  const handleLogin = () => {
-    navigate("/login");
-  };
+  useEffect(() => {
+    const token = localStorage.getItem("accessToken");
+    
+    if (token) {
+      try {
+        const decoded = jwtDecode(token);
+        if (decoded.type === "medecin") {
+          navigate("/medecin");
+        } else {
+          navigate("/anesthesiste");
+        }
+      } catch (error) {
+        console.error("Invalid token:", error);
+        localStorage.removeItem("accessToken"); 
+        navigate("/login");
+      }
+    }
+  }, [navigate]);
 
-  const handleSignup = () => {
-    navigate("/signup"); 
-  };
+  const handleLogin = () => navigate("/login");
+  const handleSignup = () => navigate("/signup");
 
   return (
     <div className="home-container">
@@ -36,4 +51,4 @@ const HomePage = () => {
   );
 };
 
-export default HomePage;
+export default Home
