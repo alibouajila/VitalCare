@@ -1,0 +1,129 @@
+/* General container styling */
+.container {
+  width: 50%;
+  margin: 50px auto;
+  margin-top: 6%;
+  padding: 20px;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  text-align: center;
+}
+
+/* Title styling */
+h2, h3 {
+  color: #211C84;
+}
+
+/* Input field styling */
+.input-field {
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+/* Submit button styling */
+.submit-btn {
+  background-color: #4D55CC;
+  color: white;
+  padding: 10px;
+  width: 100%;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.submit-btn:hover {
+  background-color: #7A73D1;
+}
+
+/* Patient list styling */
+.patient-list {
+  list-style-type: none;
+  padding: 0;
+}
+
+.patient-list li {
+  background: #f4f4f4;
+  padding: 10px;
+  margin: 5px 0;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+/* Diagnostics list */
+.diagnostic-list {
+  list-style-type: none;
+  padding: 0;
+}
+
+.diagnostic-list li {
+  background: #2c279cde;
+  color: white;
+  padding: 10px;
+  margin: 5px 0;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.diagnostic-list li:hover {
+  background: #7A73D1;
+}
+
+/* Modal styling */
+.modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: white;
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  width: 40%;
+  max-height: 700px;
+  max-width: 500px;
+  overflow-y: auto;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* Inputs inside modal */
+.modal input {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+/* Buttons inside modal */
+.modal .submit-btn,
+.modal .close-btn {
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 100%;
+}
+
+.modal .submit-btn {
+  background-color: #4D55CC;
+  color: white;
+}
+
+.modal .submit-btn:hover {
+  background-color: #7A73D1;
+}
+
+.modal .close-btn {
+  background-color: #ea3c3c;
+}
+
+.modal .close-btn:hover {
+  background-color: #923737;
+}

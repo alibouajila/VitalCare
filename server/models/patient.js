@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 const fichePatientSchema = new mongoose.Schema({
   // 🔹 Informations générales du patient
@@ -7,96 +7,96 @@ const fichePatientSchema = new mongoose.Schema({
   numeroDossier: { type: String, required: true, unique: true, trim: true },
   date: { type: Date, default: Date.now },
   age: { type: Number, required: true },
-  poids: { type: Number },
-  taille: { type: Number },
-  groupeSanguin: { type: String, trim: true },
-  rhesus: { type: String, trim: true },
+  poids: { type: Number, default: null },
+  taille: { type: Number, default: null },
+  groupeSanguin: { type: String, trim: true, default: "" },
+  rhesus: { type: String, trim: true, default: "" },
 
   // 🔹 Informations sur les médecins
-  medecinAR: { type: String, trim: true },
-  chirurgien: { type: String, trim: true },
+  medecinAR: { type: String, trim: true, default: "" },
+  chirurgien: { type: String, trim: true, default: "" },
 
   // 🔹 Détails de l'opération et historique médical
-  diagnostic: { type: String, trim: true },
-  interventionPrevue: { type: String, trim: true },
-  chirurgieAnesthesie: { type: String, trim: true },
-  medicauxGynecoObstetricaux: { type: String, trim: true },
-  allergie: { type: String, trim: true },
-  medicationEnCours: { type: String, trim: true },
+  diagnostic: { type: String, trim: true, default: "" },
+  interventionPrevue: { type: String, trim: true, default: "" },
+  chirurgieAnesthesie: { type: String, trim: true, default: "" },
+  medicauxGynecoObstetricaux: { type: String, trim: true, default: "" },
+  allergie: { type: String, trim: true, default: "" },
+  medicationEnCours: { type: String, trim: true, default: "" },
 
   // 🔹 Évaluation clinique
-  respiratoire: { type: String, trim: true },
-  cardioVasculaire: { type: String, trim: true },
-  autres: { type: String, trim: true },
-  intubations: { type: String, trim: true },
+  respiratoire: { type: String, trim: true, default: "" },
+  cardioVasculaire: { type: String, trim: true, default: "" },
+  autres: { type: String, trim: true, default: "" },
+  intubations: { type: String, trim: true, default: "" },
 
   // 🔹 Analyses biologiques
   biochimie: {
-    gly: { type: Number },
-    uree: { type: Number },
-    creat: { type: Number },
-    prot: { type: Number },
-    na: { type: Number },
-    k: { type: Number },
-    cl: { type: Number },
-    ca: { type: Number },
-    ph: { type: Number },
+    gly: { type: Number, default: null },
+    uree: { type: Number, default: null },
+    creat: { type: Number, default: null },
+    prot: { type: Number, default: null },
+    na: { type: Number, default: null },
+    k: { type: Number, default: null },
+    cl: { type: Number, default: null },
+    ca: { type: Number, default: null },
+    ph: { type: Number, default: null },
   },
 
   bilanHepatique: {
-    bilirubine: { type: Number },
-    asat: { type: Number },
-    alat: { type: Number },
-    t: { type: Number },
-    c: { type: Number },
-    pai: { type: Number }
+    bilirubine: { type: Number, default: null },
+    asat: { type: Number, default: null },
+    alat: { type: Number, default: null },
+    t: { type: Number, default: null },
+    c: { type: Number, default: null },
+    pai: { type: Number, default: null }
   },
 
   hemostase: {
-    tpInr: { type: Number },
-    tck: { type: Number },
-    ts: { type: Number }
+    tpInr: { type: Number, default: null },
+    tck: { type: Number, default: null },
+    ts: { type: Number, default: null }
   },
 
   nfS: {
-    gr: { type: Number },
-    gb: { type: Number },
-    hb: { type: Number },
-    hte: { type: Number },
-    pnn: { type: Number },
-    plaq: { type: Number }
+    gr: { type: Number, default: null },
+    gb: { type: Number, default: null },
+    hb: { type: Number, default: null },
+    hte: { type: Number, default: null },
+    pnn: { type: Number, default: null },
+    plaq: { type: Number, default: null }
   },
 
   // 🔹 Autres explorations et traitement
-  autresExplorations: { type: String, trim: true },
+  autresExplorations: { type: String, trim: true, default: "" },
   traitement: {
-    aArreter: { type: String, trim: true },
-    aPoursuivre: { type: String, trim: true }
+    aArreter: { type: String, trim: true, default: "" },
+    aPoursuivre: { type: String, trim: true, default: "" }
   },
 
   // 🔹 Classification et préparation à l'anesthésie
   classe: {
-    urgence: { type: Boolean, required: true },
-    jeune: { type: Boolean, required: true }
+    urgence: { type: Boolean, required: true, default: false },
+    jeune: { type: Boolean, required: true, default: false }
   },
 
   premedication: {
-    veille: { type: String, trim: true },
-    jour: { type: String, trim: true }
+    veille: { type: String, trim: true, default: "" },
+    jour: { type: String, trim: true, default: "" }
   },
 
   antibioprophylaxie: {
     cg: { type: Boolean, default: false },
     pfc: { type: Boolean, default: false },
-    autre: { type: String, trim: true }
+    autre: { type: String, trim: true, default: "" }
   },
 
   // 🔹 Risques et suivi post-opératoire
-  risquesMajeurs: { type: String, trim: true },
+  risquesMajeurs: { type: String, trim: true, default: "" },
   protocoleAnesthesique: {
     type: String,
     enum: ["AG", "AL", "ALR"],
-    required: true
+    default: "AG"
   },
 
   postOperatoire: {

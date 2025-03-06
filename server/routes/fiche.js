@@ -12,9 +12,8 @@ router.post("/add", verifyToken, async (req, res) => {
      nom,prenom,numeroDossier, age, poids, taille, groupeSanguin, rhesus,
       chirurgien, diagnostic, interventionPrevue, chirurgieAnesthesie,
       medicauxGynecoObstetricaux, allergie, medicationEnCours, respiratoire,
-      cardioVasculaire, autres, intubations, biochimie, bilanHepatique, hemostase,
-      nfS, autresExplorations, traitement, classe, premedication, antibioprophylaxie,
-      risquesMajeurs, protocoleAnesthesique, postOperatoire
+      cardioVasculaire, biochimie, bilanHepatique, hemostase,
+      nfS,
     } = req.body;
 
     const newFiche = new FichePatient({
@@ -22,9 +21,8 @@ router.post("/add", verifyToken, async (req, res) => {
       medecinAR: `${req.user.nom} ${req.user.prenom}`, 
       chirurgien, diagnostic, interventionPrevue, chirurgieAnesthesie,
       medicauxGynecoObstetricaux, allergie, medicationEnCours, respiratoire,
-      cardioVasculaire, autres, intubations, biochimie, bilanHepatique, hemostase,
-      nfS, autresExplorations, traitement, classe, premedication, antibioprophylaxie,
-      risquesMajeurs, protocoleAnesthesique, postOperatoire
+      cardioVasculaire, biochimie, bilanHepatique, hemostase,
+      nfS,
     });
 
     await newFiche.save();
@@ -82,5 +80,28 @@ router.get("/:cin", verifyToken, async (req, res) => {
     res.status(500).json({ message: "Erreur serveur. Veuillez réessayer plus tard.", error: error.message });
   }
 });
+router.put("/update/:id", verifyToken, async (req, res) => {
+  try {
+    if (req.user.type !== "anesthesiste") {
+      return res.status(403).json({ message: "Accès refusé. Seuls les anesthésistes peuvent modifier un dossier patient." });
+    }
+
+    const { id } = req.params;
+    const updateData = req.body;
+
+    const updatedFiche = await FichePatient.findByIdAndUpdate(id, updateData, { new: true });
+
+    if (!updatedFiche) {
+      return res.status(404).json({ message: "Dossier patient non trouvé." });
+    }
+
+    res.status(200).json({ message: "Dossier patient mis à jour avec succès.", fiche: updatedFiche });
+
+  } catch (error) {
+    console.error("❌ Erreur lors de la mise à jour du dossier patient:", error);
+    res.status(500).json({ message: "Erreur serveur. Veuillez réessayer plus tard.", error: error.message });
+  }
+});
+
 
 module.exports = router;
