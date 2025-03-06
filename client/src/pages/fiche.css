@@ -1,0 +1,96 @@
+/* Body Styles */
+.patient-info-page {
+    font-family: Arial, sans-serif;
+    background-color: #f0f2f5;
+    margin: 0;
+    padding: 0;
+    color: #333;
+  }
+  
+  /* Main container */
+  .patient-info-page .container {
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Section Titles */
+  .patient-info-page h1,
+  .patient-info-page h3 {
+    color: #211C84;
+    font-size: 1.8rem;
+    margin-bottom: 15px;
+    margin: 30px ;
+    text-align: center;
+  }
+  
+  /* General Section */
+  .patient-info-page section {
+    margin-bottom: 25px;
+  }
+  
+  /* Card for individual data groups (e.g., Biochimie, Hemostase, etc.) */
+  .patient-info-page .card {
+    padding: 15px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    margin-bottom: 15px;
+  }
+  
+  /* Label for field names */
+  .patient-info-page .card p strong {
+    color: #4D55CC;
+    font-weight: bold;
+  }
+  
+  /* Data content */
+  .patient-info-page .card p {
+    font-size: 1rem;
+    margin: 5px 0;
+  }
+  
+  /* Section Layout */
+  .patient-info-page .card-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: space-between;
+  }
+  
+  /* Individual Card */
+  .patient-info-page .card-container .card {
+    flex: 1 1 45%;
+  }
+  
+  /* Footer and Miscellaneous */
+  .patient-info-page footer {
+    background-color: #211C84;
+    color: white;
+    text-align: center;
+    padding: 15px;
+    border-radius: 8px;
+    margin-top: 30px;
+  }
+  
+  /* Loading and Error Message */
+  .patient-info-page .loading,
+  .patient-info-page .error {
+    color: #ff4d4d;
+    font-size: 1.2rem;
+    text-align: center;
+  }
+  
+  /* Link Styles */
+  .patient-info-page a {
+    text-decoration: none;
+    color: #4D55CC;
+  }
+  
+  .patient-info-page a:hover {
+    text-decoration: underline;
+  }
+  

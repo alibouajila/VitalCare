@@ -102,6 +102,23 @@ router.put("/update/:id", verifyToken, async (req, res) => {
     res.status(500).json({ message: "Erreur serveur. Veuillez réessayer plus tard.", error: error.message });
   }
 });
+router.get("/id/:id", verifyToken, async (req, res) => {
+  try {
+    const { id } = req.params;
+    
+    const fiche = await FichePatient.findById(id);
+    
+    if (!fiche) {
+      return res.status(404).json({ message: "Aucun dossier patient trouvé avec cet ID." });
+    }
+
+    res.status(200).json({ message: "Dossier patient récupéré avec succès.", fiche });
+
+  } catch (error) {
+    console.error("❌ Erreur lors de la récupération du dossier patient par ID:", error);
+    res.status(500).json({ message: "Erreur serveur. Veuillez réessayer plus tard.", error: error.message });
+  }
+});
 
 
 module.exports = router;

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
 import axios from "axios";
-import "./Medecin.css"; // Import du fichier CSS
+import "./Medecin.css"; 
 function Medecin() {
   const navigate = useNavigate();
   useEffect(() => {
@@ -96,7 +96,9 @@ const handleAddPatient = async (e) => {
   }
 };
 
-
+const patientClick = (patientId)=>{
+navigate(`/fiche/id/${patientId}`);
+}
 const handleDiagnosisClick = (diagnosticName) => {
   const keyMapping = {
     "Biochimie": "biochimie",
@@ -150,7 +152,7 @@ const handleDiagnosisClick = (diagnosticName) => {
         {patients
           .filter((p) => p.numeroDossier.includes(search))
           .map((patient) => (
-            <li key={patient._id}>
+            <li key={patient._id} onClick={() => patientClick(patient._id)}>
               {patient.nom} {patient.prenom} - {patient.numeroDossier}
             </li>
           ))}
