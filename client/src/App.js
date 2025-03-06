@@ -6,6 +6,7 @@ import Signup from "./pages/Signup";
 import Anesthesiste from "./pages/Anesthesiste"
 import Medecin  from "./pages/Medecin";
 import Fiche from "./pages/Fiche";
+import Footer from"./components/Footer"
 function App() {
   return (
     <Router>
@@ -18,6 +19,7 @@ function App() {
         <Route path="/medecin" element={<Medecin />} />
         <Route path="/fiche/id/:id" element={<Fiche />} />
       </Routes>
+      <Footer/>
     </Router>
   );
 }

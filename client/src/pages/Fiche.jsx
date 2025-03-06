@@ -27,7 +27,8 @@ const Fiche = () => {
         if (ficheData.bilanHepatique && typeof ficheData.bilanHepatique === 'object') {
           ficheData.bilanHepatique = Object.entries(ficheData.bilanHepatique);
         }
-          setFiche(ficheData);
+  
+        setFiche(ficheData);
         setLoading(false);
       } catch (err) {
         setError("Erreur lors de la récupération des informations du dossier patient.");
@@ -49,7 +50,8 @@ const Fiche = () => {
         <p className="error">{error}</p>
       ) : (
         <>
-          <h1>{fiche.nom} {fiche.prenom}</h1>
+<img src="/assets/add.png" alt="Add Icon" width="30" height="30" />
+<h1>{fiche.nom} {fiche.prenom}</h1>
           <section>
             <h3>Patient Information</h3>
             <div className="card-container">
@@ -137,8 +139,7 @@ const Fiche = () => {
               <p><strong>Jeune:</strong>&nbsp;&nbsp;&nbsp; {fiche.classe.jeune ? 'Oui' : 'Non'}</p>
             </div>
           </section>
-  
-         </>
+        </>
       )}
     </div>
   );

@@ -68,12 +68,15 @@
   
   /* Footer and Miscellaneous */
   .patient-info-page footer {
-    background-color: #211C84;
+    background-color: #112d4e;
     color: white;
     text-align: center;
-    padding: 15px;
-    border-radius: 8px;
-    margin-top: 30px;
+    padding:  10px;
+    padding-right: 3px;
+    margin-left: -10px;
+    width: 100%;
+    
+    
   }
   
   /* Loading and Error Message */
