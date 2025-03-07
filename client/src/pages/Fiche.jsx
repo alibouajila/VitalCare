@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom"; 
 import { useNavigate } from "react-router-dom";
+import { jwtDecode } from 'jwt-decode';
 import "./fiche.css"
 const Fiche = () => {
   const navigate=useNavigate()
@@ -10,7 +11,14 @@ const Fiche = () => {
   const [loading, setLoading] = useState(true); 
   const [error, setError] = useState(null); 
   const AddPatienPage=()=>{
-    navigate("/liste-des-patients")
+    const token=localStorage.getItem("accessToken")
+    const decodedToken = jwtDecode(token);
+    const type = decodedToken.type;
+    if(type==="medecin"){
+      navigate("/liste-des-patients")
+    }else{
+      navigate("/anesthesiste")
+    }
   }
   useEffect(() => {
     const fetchFiche = async () => {
