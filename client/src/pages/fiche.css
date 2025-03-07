@@ -96,4 +96,19 @@
   .patient-info-page a:hover {
     text-decoration: underline;
   }
-  
+  .addpatient{
+    margin-bottom: 20px;
+  }
+  .addpatient:hover{
+    background-color:#2d2d37cf;
+    cursor: pointer;
+    transition: 0.2s;
+  }
+  .addpatient2{
+    margin-top: 74px;
+  }
+  .addpatient2:hover{
+    background-color:#2d2d37cf;
+    cursor: pointer;
+    transition: 0.2s;
+  }

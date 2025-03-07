@@ -7,6 +7,7 @@ import Anesthesiste from "./pages/Anesthesiste"
 import Medecin  from "./pages/Medecin";
 import Fiche from "./pages/Fiche";
 import Footer from"./components/Footer"
+import ListeDesPatients from "./pages/ListeDesPatients";
 function App() {
   return (
     <Router>
@@ -18,6 +19,7 @@ function App() {
         <Route path="/anesthesiste" element={<Anesthesiste />} />
         <Route path="/medecin" element={<Medecin />} />
         <Route path="/fiche/id/:id" element={<Fiche />} />
+        <Route path="/liste-des-patients" element={<ListeDesPatients />} />
       </Routes>
       <Footer/>
     </Router>

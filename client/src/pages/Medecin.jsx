@@ -3,8 +3,10 @@ import { useNavigate } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
 import axios from "axios";
 import "./Medecin.css"; 
+
 function Medecin() {
   const navigate = useNavigate();
+  
   useEffect(() => {
     const token = localStorage.getItem("accessToken");
 
@@ -16,15 +18,13 @@ function Medecin() {
         if (decoded.type !== "medecin") {
           navigate("/dashboard");
         } else {
-          fetchPatients();
         }
       } catch (error) {
         navigate("/login");
       }
     }
   }, [navigate]);
-  const [patients, setPatients] = useState([]);
-  const [search, setSearch] = useState("");
+
   const [newPatient, setNewPatient] = useState({
     nom: "",
     prenom: "",
@@ -34,19 +34,19 @@ function Medecin() {
     taille: "",
     groupeSanguin: "",
     rhesus: "",
-    chirurgien:"",
-    diagnostic:"",
-    interventionPrevue:"",
-    chirurgieAnesthesie:"",
-    medicauxGynecoObstetricaux:"",
-    allergie:"",
-    medicationEnCours:"",
-    respiratoire:"",
-    cardioVasculaire:"",
-    biochimie:{},
-    bilanHepatique:{},
-    hemostase:{},
-    nfS:{},
+    chirurgien: "",
+    diagnostic: "",
+    interventionPrevue: "",
+    chirurgieAnesthesie: "",
+    medicauxGynecoObstetricaux: "",
+    allergie: "",
+    medicationEnCours: "",
+    respiratoire: "",
+    cardioVasculaire: "",
+    biochimie: {},
+    bilanHepatique: {},
+    hemostase: {},
+    nfS: {},
   });
 
   const [diagnosticData, setDiagnosticData] = useState({
@@ -66,51 +66,36 @@ function Medecin() {
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [currentDiagnosis, setCurrentDiagnosis] = useState("");
-  const fetchPatients = async () => {
+  
+  const handleAddPatient = async (e) => {
+    e.preventDefault();
     try {
-      const response = await axios.get("http://localhost:3001/fiche/all", {
+      const patientWithDiagnosticData = {
+        ...newPatient,
+        ...diagnosticData, 
+      };
+
+      await axios.post("http://localhost:3001/fiche/add", patientWithDiagnosticData, {
         headers: { Authorization: `Bearer ${localStorage.getItem("accessToken")}` },
       });
-      setPatients(response.data.fiches);
+
+      alert("Patient ajouté !");
     } catch (error) {
-      console.error("Erreur de récupération des patients:", error);
+      console.error("Erreur d'ajout du patient:", error);
     }
   };
 
-const handleAddPatient = async (e) => {
-  e.preventDefault();
-  try {
-    const patientWithDiagnosticData = {
-      ...newPatient,
-      ...diagnosticData, 
+  const handleDiagnosisClick = (diagnosticName) => {
+    const keyMapping = {
+      "Biochimie": "biochimie",
+      "Bilan Hepatique": "bilanHepatique",
+      "Hemostase": "hemostase",
+      "NFS": "nfS",
     };
 
-    await axios.post("http://localhost:3001/fiche/add", patientWithDiagnosticData, {
-      headers: { Authorization: `Bearer ${localStorage.getItem("accessToken")}` },
-    });
-
-    alert("Patient ajouté !");
-    fetchPatients(); // Recharge la liste des patients après l'ajout
-  } catch (error) {
-    console.error("Erreur d'ajout du patient:", error);
-  }
-};
-
-const patientClick = (patientId)=>{
-navigate(`/fiche/id/${patientId}`);
-}
-const handleDiagnosisClick = (diagnosticName) => {
-  const keyMapping = {
-    "Biochimie": "biochimie",
-    "Bilan Hepatique": "bilanHepatique",
-    "Hemostase": "hemostase",
-    "NFS": "nfS",
+    setCurrentDiagnosis(keyMapping[diagnosticName]);
+    setIsModalOpen(true);
   };
-
-  setCurrentDiagnosis(keyMapping[diagnosticName]);
-  setIsModalOpen(true);
-};
-
 
   const handleCloseModal = () => {
     setIsModalOpen(false);
@@ -118,7 +103,7 @@ const handleDiagnosisClick = (diagnosticName) => {
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    const [category, field] = name.split("."); 
+    const [category, field] = name.split("."); // Sépare le nom pour accéder à la catégorie et au champ spécifique
 
     setDiagnosticData((prevState) => ({
       ...prevState,
@@ -130,36 +115,20 @@ const handleDiagnosisClick = (diagnosticName) => {
   };
 
   const handleSubmit = async () => {
-    console.log(  );
-    setIsModalOpen(false); 
+    setIsModalOpen(false); // Fermer la modale après enregistrement
   };
+  const handlePatientListClick=()=>{
+    navigate("/liste-des-patients")
+  }
 
   return (
     <div className="container">
       <h2>Dashboard Médecin</h2>
-
-      {/* 🔍 Barre de recherche */}
-      <input
-        className="input-field"
-        type="text"
-        placeholder="Rechercher par numéro de dossier"
-        value={search}
-        onChange={(e) => setSearch(e.target.value)}
-      />
-
-      {/* 📋 Liste des patients */}
-      <ul className="patient-list">
-        {patients
-          .filter((p) => p.numeroDossier.includes(search))
-          .map((patient) => (
-            <li key={patient._id} onClick={() => patientClick(patient._id)}>
-              {patient.nom} {patient.prenom} - {patient.numeroDossier}
-            </li>
-          ))}
-      </ul>
-
+      <button onClick={handlePatientListClick} className="listepatient">
+      Liste des Patients
+      </button>
       {/* ➕ Formulaire d'ajout de patient */}
-      <h3>Ajouter un patient</h3>
+      <h3 className="title1">Ajouter un Patient</h3>
       <form onSubmit={handleAddPatient} className="form-container">
         <input
           type="text"
@@ -229,18 +198,17 @@ const handleDiagnosisClick = (diagnosticName) => {
         <div className="modal">
           <h3>Entrer les valeurs pour {currentDiagnosis}</h3>
 
-          {/* Dynamic inputs for selected diagnosis */}
+          {/* Inputs dynamiques pour le diagnostic sélectionné */}
           {Object.keys(diagnosticData[currentDiagnosis] || {}).map((key) => (
-  <input
-    key={key}
-    type="number"
-    name={`${currentDiagnosis}.${key}`} // Nested field name
-    placeholder={key.charAt(0).toUpperCase() + key.slice(1)}
-    value={diagnosticData[currentDiagnosis][key] || ""}
-    onChange={handleInputChange}
-  />
-))}
-    
+            <input
+              key={key}
+              type="number"
+              name={`${currentDiagnosis}.${key}`} // Nom de champ imbriqué
+              placeholder={key.charAt(0).toUpperCase() + key.slice(1)}
+              value={diagnosticData[currentDiagnosis][key] || ""}
+              onChange={handleInputChange}
+            />
+          ))}
 
           <button onClick={handleSubmit} className="submit-btn">
             Enregistrer

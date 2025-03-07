@@ -1,13 +1,17 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom"; 
+import { useNavigate } from "react-router-dom";
 import "./fiche.css"
 const Fiche = () => {
+  const navigate=useNavigate()
   const { id } = useParams(); 
   const [fiche, setFiche] = useState(null);
   const [loading, setLoading] = useState(true); 
   const [error, setError] = useState(null); 
-
+  const AddPatienPage=()=>{
+    navigate("/liste-des-patients")
+  }
   useEffect(() => {
     const fetchFiche = async () => {
       try {
@@ -50,10 +54,10 @@ const Fiche = () => {
         <p className="error">{error}</p>
       ) : (
         <>
-<img src="/assets/add.png" alt="Add Icon" width="30" height="30" />
-<h1>{fiche.nom} {fiche.prenom}</h1>
+        <br></br><br></br><br></br>
+<h1>Patient informations</h1>
+<img onClick={AddPatienPage} className="addpatient" src="/assets/add.png" alt="Add Icon" width="50" height="50" />
           <section>
-            <h3>Patient Information</h3>
             <div className="card-container">
               <div className="card">
               <p><strong>nom:</strong> {fiche.nom}</p>

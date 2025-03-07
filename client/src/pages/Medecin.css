@@ -26,7 +26,7 @@ h2, h3 {
 
 /* Submit button styling */
 .submit-btn {
-  background-color: #4D55CC;
+  background-color: #211C84;
   color: white;
   padding: 10px;
   width: 100%;
@@ -37,7 +37,7 @@ h2, h3 {
 }
 
 .submit-btn:hover {
-  background-color: #7A73D1;
+  background-color: #57539b;
 }
 
 /* Patient list styling */
@@ -53,6 +53,9 @@ h2, h3 {
   border-radius: 5px;
   cursor: pointer;
 }
+.litem:hover{
+  background-color: #bbbace;
+}
 
 /* Diagnostics list */
 .diagnostic-list {
@@ -61,7 +64,7 @@ h2, h3 {
 }
 
 .diagnostic-list li {
-  background: #2c279cde;
+  background: #211C84;
   color: white;
   padding: 10px;
   margin: 5px 0;
@@ -70,7 +73,7 @@ h2, h3 {
 }
 
 .diagnostic-list li:hover {
-  background: #7A73D1;
+  background: #57539b;
 }
 
 /* Modal styling */
@@ -121,9 +124,19 @@ h2, h3 {
 }
 
 .modal .close-btn {
-  background-color: #ea3c3c;
+  background-color: #8b1717;
 }
 
 .modal .close-btn:hover {
   background-color: #923737;
+}
+.listepatient{
+  background-color: #211C84;
+}
+.listepatient:hover{
+  background-color: #57539b;
+
+}
+.title1{
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
