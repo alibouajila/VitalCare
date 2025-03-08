@@ -112,3 +112,15 @@
     cursor: pointer;
     transition: 0.2s;
   }
+.print{
+position: relative;
+left: 1400px;
+margin-right: 20px;
+top: -24px;
+
+  }
+  .print:hover{
+    background-color:#2d2d37cf;
+    cursor: pointer; 
+    transition: 0.2s; 
+  }

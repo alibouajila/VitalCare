@@ -50,7 +50,9 @@ const Fiche = () => {
   
     fetchFiche();
   }, [id]);
-  
+  const Print=()=>{
+    window.print()
+  }
 
   if (loading) return <div>Chargement des informations...</div>;
   if (error) return <div>{error}</div>;
@@ -65,6 +67,7 @@ const Fiche = () => {
         <br></br><br></br><br></br>
 <h1>Patient informations</h1>
 <img onClick={AddPatienPage} className="addpatient" src="/assets/add.png" alt="Add Icon" width="50" height="50" />
+<img onClick={Print} className="print" src="/assets/print.png" alt="Add Icon" width="60" height="60" />
           <section>
             <div className="card-container">
               <div className="card">
