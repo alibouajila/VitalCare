@@ -88,6 +88,17 @@ const Fiche = () => {
               </div>
             </div>
           </section>
+          <section>
+          <h3>Bilan clinique</h3>
+          <div className="card">
+              <p><strong>Respiratoire :</strong> {fiche.respiratoire|| 'Non précisé'}</p>
+              <p><strong>cardio Vasculaire:</strong> {fiche.cardioVasculaire|| 'Non précisé'}</p>
+              <p><strong>autres:</strong> {fiche.autres|| 'Non précisé'}</p>
+              <p><strong>intubations:</strong> {fiche.intubations|| 'Non précisé'} </p>
+              </div>
+
+
+          </section>
   
           {/* Render Biochimie */}
           <section>
