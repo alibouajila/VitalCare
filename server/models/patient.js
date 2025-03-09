@@ -77,18 +77,8 @@ const fichePatientSchema = new mongoose.Schema({
   // 🔹 Classification et préparation à l'anesthésie
   classe: {
     urgence: { type: Boolean, required: true, default: false },
-    jeune: { type: Boolean, required: true, default: false }
-  },
-
-  premedication: {
-    veille: { type: String, trim: true, default: "" },
-    jour: { type: String, trim: true, default: "" }
-  },
-
-  antibioprophylaxie: {
-    cg: { type: Boolean, default: false },
-    pfc: { type: Boolean, default: false },
-    autre: { type: String, trim: true, default: "" }
+    jeune: { type: Boolean, required: true, default: false },
+    paragraphe:{type:String}
   },
 
   // 🔹 Risques et suivi post-opératoire

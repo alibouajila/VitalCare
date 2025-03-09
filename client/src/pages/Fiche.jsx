@@ -93,8 +93,8 @@ const Fiche = () => {
           <div className="card">
               <p><strong>Respiratoire :</strong> {fiche.respiratoire|| 'Non précisé'}</p>
               <p><strong>cardio Vasculaire:</strong> {fiche.cardioVasculaire|| 'Non précisé'}</p>
-              <p><strong>autres:</strong> {fiche.autres|| 'Non précisé'}</p>
               <p><strong>intubations:</strong> {fiche.intubations|| 'Non précisé'} </p>
+              <p><strong>autres:</strong> {fiche.autres|| 'Non précisé'}</p>
               </div>
 
 
@@ -156,13 +156,28 @@ const Fiche = () => {
               <p><strong>A poursuivre:</strong>&nbsp;&nbsp;&nbsp;{fiche.traitement.aPoursuivre || 'Non précisé'}</p>
             </div>
           </section>
-  
+          <section>
+            <h3>Autre explorations</h3>
+            <div className="card">
+              <p><strong></strong>&nbsp;&nbsp;&nbsp;{fiche.autresExplorations || 'Non précisé'}</p>
+            </div>
+          </section>
           {/* Render Classe */}
           <section>
             <h3>Classe</h3>
             <div className="card">
               <p><strong>Urgence:</strong> &nbsp;&nbsp;&nbsp;{fiche.classe.urgence ? 'Oui' : 'Non'}</p>
               <p><strong>Jeune:</strong>&nbsp;&nbsp;&nbsp; {fiche.classe.jeune ? 'Oui' : 'Non'}</p>
+              <p><strong></strong>&nbsp;&nbsp;&nbsp; {fiche.classe.paragraphe}</p>
+            </div>
+          </section>          <section>
+            <h3>Risques majeurs</h3>
+            <div className="card">
+              <p><strong>protocole Anesthesique:</strong> &nbsp;&nbsp;&nbsp;{fiche.classe.protocoleAnesthesique ? fiche.classe.protocoleAnesthesique : "AG"}</p>
+              <p><strong>post Operatoire</strong>&nbsp;&nbsp;&nbsp;</p>
+              <p><strong>antibiotherapie:</strong> &nbsp;&nbsp;&nbsp;{fiche.postOperatoire.antibiotherapie ? 'Oui' : 'Non'}</p>
+              <p><strong>analgesie:</strong> &nbsp;&nbsp;&nbsp;{fiche.postOperatoire.analgesie ? 'Oui' : 'Non'}</p>
+              <p><strong>anticoagulants:</strong> &nbsp;&nbsp;&nbsp;{fiche.postOperatoire.anticoagulants ? 'Oui' : 'Non'}</p>
             </div>
           </section>
         </>
