@@ -53,7 +53,7 @@ router.post("/login", async (req, res) => {
     }
 
     if (!utilisateur.isVerified) {
-      return res.status(403).json({ message: "Utilisateur not verified" });
+      return res.status(403).json({ message: "User not verified!\nContact your administration for verification." });
     }
 
     // Generate tokens
