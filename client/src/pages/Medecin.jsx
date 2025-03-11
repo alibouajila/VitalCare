@@ -16,8 +16,10 @@ function Medecin() {
       try {
         const decoded = jwtDecode(token);
         if (decoded.type !== "medecin") {
-          navigate("/dashboard");
+          navigate("/anesthesiste");
         } else {
+          navigate("/medecin");
+
         }
       } catch (error) {
         navigate("/login");
