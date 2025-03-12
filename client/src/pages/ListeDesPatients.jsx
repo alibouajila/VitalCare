@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
+import api from "../utils/api"
 import { useNavigate } from "react-router-dom";
 function ListeDesPatients() {
   const [patients, setPatients] = useState([]);
@@ -9,7 +9,7 @@ function ListeDesPatients() {
   useEffect(() => {
     const fetchPatients = async () => {
       try {
-        const response = await axios.get("http://localhost:3001/fiche/all", {
+        const response = await api.get("http://localhost:3001/fiche/all", {
           headers: { Authorization: `Bearer ${localStorage.getItem("accessToken")}` },
         });
         setPatients(response.data.fiches);

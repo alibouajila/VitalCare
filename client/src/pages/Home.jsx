@@ -32,7 +32,7 @@ const Home = () => {
     <div className="home-container">
       <div className="home-content">
         <h1>Welcome to Our App</h1>
-        <p>
+        <p>     
           Our app helps you manage patient records, collaborate with medical
           professionals, and ensure optimal care for your patients. With our
           user-friendly interface, you can easily access all the essential data

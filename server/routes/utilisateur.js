@@ -60,7 +60,7 @@ router.post("/login", async (req, res) => {
     const accessToken = jwt.sign(
       { id: utilisateur._id, email: utilisateur.email, type: utilisateur.type,nom:utilisateur.nom,prenom:utilisateur.prenom },
       ACCESS_TOKEN_SECRET,
-      { expiresIn: "1h" }
+      { expiresIn: "30s" }
     );
 
     const refreshToken = jwt.sign(
@@ -72,15 +72,16 @@ router.post("/login", async (req, res) => {
     // Store refresh token in HTTP-only cookie
     res.cookie("refreshToken", refreshToken, {
       httpOnly: true,
-      secure: true, // Set to true if using HTTPS
+      secure: true, 
       sameSite: "Strict",
-      maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
+      maxAge: 7 * 24 * 60 * 60 * 1000,
     });
 
     res.status(200).json({
       message: "Login successful",
       accessToken,
-      type: utilisateur.type
+      type: utilisateur.type,
+      REFRESH_TOKEN_SECRET,
     });
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -89,8 +90,8 @@ router.post("/login", async (req, res) => {
 
 // Refresh Token Route
 router.post("/refresh-token", (req, res) => {
+  console.log("ok")
   const refreshToken = req.cookies.refreshToken; // Get refresh token from cookies
-
   if (!refreshToken) {
     return res.status(400).json({ message: "Refresh token is required" });
   }

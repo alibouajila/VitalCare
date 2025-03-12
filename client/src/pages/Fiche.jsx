@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
 import { useParams } from "react-router-dom"; 
 import { useNavigate } from "react-router-dom";
 import { jwtDecode } from 'jwt-decode';
 import "./fiche.css"
+import api from "../utils/api"
 const Fiche = () => {
   const navigate=useNavigate()
   const { id } = useParams(); 
@@ -24,7 +24,7 @@ const Fiche = () => {
     const fetchFiche = async () => {
       try {
         const token = localStorage.getItem('accessToken');
-        const response = await axios.get(`http://localhost:3001/fiche/id/${id}`, {
+        const response = await api.get(`http://localhost:3001/fiche/id/${id}`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },

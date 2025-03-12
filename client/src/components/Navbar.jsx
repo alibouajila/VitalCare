@@ -6,7 +6,11 @@ const Navbar = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem("accessToken"));
   const navigate = useNavigate();
 
-  const handleLogout = () => {
+  const handleLogout =async () => {
+    await fetch("http://localhost:3001/user/logout", {
+      method: "POST",
+      credentials: "include",
+    });
     localStorage.removeItem("accessToken");
     setIsLoggedIn(false); // Update the state immediately after logout
     navigate("/login");   // Redirect to the login page

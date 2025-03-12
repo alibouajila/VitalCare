@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
-import axios from "axios";
+import api from "../utils/api"
 import "./Medecin.css"; 
 
 function Medecin() {
@@ -77,7 +77,7 @@ function Medecin() {
         ...diagnosticData, 
       };
 
-      await axios.post("http://localhost:3001/fiche/add", patientWithDiagnosticData, {
+      await api.post("http://localhost:3001/fiche/add", patientWithDiagnosticData, {
         headers: { Authorization: `Bearer ${localStorage.getItem("accessToken")}` },
       });
 

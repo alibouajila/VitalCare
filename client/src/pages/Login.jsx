@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import api from "../utils/api"
 import "./Login.css";
 import { useEffect } from "react";
 const Login = () => {
@@ -21,7 +21,7 @@ useEffect(() => {
     setError("");
 
     try {
-      const response = await axios.post(
+      const response = await api.post(
         "http://localhost:3001/user/login",
         { email, password },
         { withCredentials: true }
