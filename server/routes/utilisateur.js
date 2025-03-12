@@ -60,7 +60,7 @@ router.post("/login", async (req, res) => {
     const accessToken = jwt.sign(
       { id: utilisateur._id, email: utilisateur.email, type: utilisateur.type,nom:utilisateur.nom,prenom:utilisateur.prenom },
       ACCESS_TOKEN_SECRET,
-      { expiresIn: "30s" }
+      { expiresIn: "1h" }
     );
 
     const refreshToken = jwt.sign(
@@ -90,7 +90,6 @@ router.post("/login", async (req, res) => {
 
 // Refresh Token Route
 router.post("/refresh-token", (req, res) => {
-  console.log("ok")
   const refreshToken = req.cookies.refreshToken; // Get refresh token from cookies
   if (!refreshToken) {
     return res.status(400).json({ message: "Refresh token is required" });
@@ -100,7 +99,7 @@ router.post("/refresh-token", (req, res) => {
     const decoded = jwt.verify(refreshToken, REFRESH_TOKEN_SECRET);
 
     const accessToken = jwt.sign(
-      { id: decoded.id, email: decoded.email, type: decoded.type },
+      { id: decoded.id, email: decoded.email, type: decoded.type,nom:decoded.nom,prenom:decoded.prenom  },
       ACCESS_TOKEN_SECRET,
       { expiresIn: "1h" }
     );

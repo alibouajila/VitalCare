@@ -18,20 +18,30 @@ const refreshAccessToken = async () => {
 api.interceptors.response.use(
   (response) => response,
   async (error) => {
-    console.error("Error object:", error); 
+    console.error("Interceptor triggered, error:", error);
+
     if (error.response?.status === 401) {
       try {
         const newAccessToken = await refreshAccessToken();
+        localStorage.setItem("accessToken", newAccessToken);
+        // Update the failed request with the new token
         error.config.headers["Authorization"] = `Bearer ${newAccessToken}`;
-        return axios(error.config); 
+        // Retry the request with the updated token
+        return api(error.config);
       } catch (refreshError) {
-        console.error("Token refresh failed. Logging out...");
-        window.location.href = "/login"; // Redirect to login page
+        console.error("Token refresh failed. Redirecting to login...");
+        
+        // Clear storage and redirect to login
+        localStorage.removeItem("accessToken");
+        window.location.href = "/login";  
+        
         return Promise.reject(refreshError);
       }
     }
+
     return Promise.reject(error);
   }
 );
+
 
 export default api;
