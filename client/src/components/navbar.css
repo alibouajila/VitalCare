@@ -51,4 +51,8 @@
   .logout-link:hover {
     background: #ff6666;
   }
-  
+  .profile:hover{
+    cursor: pointer;
+    background: #51a4c0;
+    border-radius: 50%;
+  }

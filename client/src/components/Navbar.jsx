@@ -5,7 +5,9 @@ import "./navbar.css";
 const Navbar = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem("accessToken"));
   const navigate = useNavigate();
-
+const TakeToProfile=()=>{
+  navigate("/profile")
+}
   const handleLogout =async () => {
     await fetch("http://localhost:3001/user/logout", {
       method: "POST",
@@ -32,10 +34,10 @@ const Navbar = () => {
         <Link to="/">Vitalcare</Link>
       </div>
       <ul className="nav-links">
-        <li>
-          <Link to="/">Home</Link>
-        </li>
-        {isLoggedIn ? (
+        {isLoggedIn ? (<>
+                  <li>
+                  <img onClick={TakeToProfile} className="profile" src="/assets/profile.png" alt="Add Icon" width="40" height="40" />
+                  </li>
           <li>
             <Link   onClick={(e) => {
     e.preventDefault(); 
@@ -43,7 +45,7 @@ const Navbar = () => {
   }} className="logout-link">
               Logout
             </Link>
-          </li>
+          </li></>
         ) : (
           <>
             <li>

@@ -18,8 +18,6 @@ const refreshAccessToken = async () => {
 api.interceptors.response.use(
   (response) => response,
   async (error) => {
-    console.error("Interceptor triggered, error:", error);
-
     if (error.response?.status === 401) {
       try {
         const newAccessToken = await refreshAccessToken();
@@ -30,7 +28,6 @@ api.interceptors.response.use(
         return api(error.config);
       } catch (refreshError) {
         console.error("Token refresh failed. Redirecting to login...");
-        
         // Clear storage and redirect to login
         localStorage.removeItem("accessToken");
         window.location.href = "/login";  

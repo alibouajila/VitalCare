@@ -8,6 +8,7 @@ import Medecin  from "./pages/Medecin";
 import Fiche from "./pages/Fiche";
 import Footer from"./components/Footer"
 import ListeDesPatients from "./pages/ListeDesPatients";
+import Profile from "./pages/Profile";
 function App() {
   return (
     <Router>
@@ -20,6 +21,8 @@ function App() {
         <Route path="/medecin" element={<Medecin />} />
         <Route path="/fiche/id/:id" element={<Fiche />} />
         <Route path="/liste-des-patients" element={<ListeDesPatients />} />
+        <Route path="/profile" element={<Profile />} />
+
       </Routes>
       <Footer/>
     </Router>
