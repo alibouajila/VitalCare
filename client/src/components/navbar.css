@@ -42,17 +42,12 @@
   .nav-links a:hover {
     background: #51a4c0;
   }
-  
-  .logout-link {
-    background: #ff4d4d;
-    color: white;
-  }
-  
-  .logout-link:hover {
-    background: #ff6666;
-  }
+
   .profile:hover{
     cursor: pointer;
     background: #51a4c0;
     border-radius: 50%;
+  }
+  .profile{
+    margin-right: 5px;
   }

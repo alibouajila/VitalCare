@@ -3,7 +3,7 @@ const Utilisateur = require("../models/utilisateur");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const cookieParser = require("cookie-parser");
-
+const { verifyToken } = require("../middlewares/auth");
 const router = express.Router();
 
 const ACCESS_TOKEN_SECRET = "user203u";
@@ -81,7 +81,6 @@ router.post("/login", async (req, res) => {
       message: "Login successful",
       accessToken,
       type: utilisateur.type,
-      REFRESH_TOKEN_SECRET,
     });
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -120,5 +119,76 @@ router.post("/logout", (req, res) => {
 
   res.status(200).json({ message: "Logged out successfully" });
 });
+//update nom et prenom
+router.put("/update-profile", verifyToken, async (req, res) => {
+  try {
+    const { nom, prenom } = req.body;
+    const userId = req.user.id;
+
+    if (!nom && !prenom) {
+      return res.status(400).json({ message: "Provide nom or prenom to update" });
+    }
+
+    const updatedUser = await Utilisateur.findByIdAndUpdate(
+      userId,
+      { $set: { nom, prenom } },
+      { new: true, runValidators: true }
+    );
+
+    res.status(200).json({ message: "Profile updated successfully", user: updatedUser });
+  } catch (error) {
+    res.status(500).json({ message: "Server error", error });
+  }
+});
+
+// Update password
+router.put("/update-password", verifyToken, async (req, res) => {
+  try {
+    const { oldPassword, newPassword } = req.body;
+    const userId = req.user.id;
+
+    if (!oldPassword || !newPassword) {
+      return res.status(400).json({ message: "Both old and new passwords are required" });
+    }
+
+    const user = await Utilisateur.findById(userId);
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    const isMatch = await bcrypt.compare(oldPassword, user.password);
+    if (!isMatch) {
+      return res.status(400).json({ message: "Old password is incorrect" });
+    }
+
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(newPassword, salt);
+
+    user.password = hashedPassword;
+    await user.save();
+
+    res.status(200).json({ message: "Password updated successfully" });
+  } catch (error) {
+    res.status(500).json({ message: "Server error", error });
+  }
+});
+router.get("/userinfo/", verifyToken, async (req, res) => {
+  try {
+    const userId = req.user.id;
+    const user = await Utilisateur.findById(userId).select("-password");
+
+    if (!user) {
+      return res.status(404).json({ message: "Utilisateur non trouvé" });
+    }
+
+    res.status(200).json({
+      message: "Informations utilisateur récupérées avec succès",
+      user,
+    });
+  } catch (error) {
+    res.status(500).json({ message: "Erreur serveur", error: error.message });
+  }
+});
+
 
 module.exports = router;
