@@ -47,7 +47,11 @@
     cursor: pointer;
     background: #51a4c0;
     border-radius: 50%;
+    transition: 0.5s;
+    transform: scale(1.03);
+    transform: translateX(2px);
   }
   .profile{
     margin-right: 5px;
+    transition: 0.5s;
   }

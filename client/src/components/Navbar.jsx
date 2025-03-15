@@ -39,7 +39,7 @@ const TakeToProfile=()=>{
                   <img onClick={TakeToProfile} className="profile" src="/assets/profile.png" alt="Add Icon" width="40" height="40" />
                   </li>
                   <li>
-                  <img onClick={handleLogout} className="profile" src="/assets/logout.png" alt="Add Icon" width="40" height="40" />
+                  <img onClick={handleLogout} className="profile" src="/assets/logout.png" alt="Add Icon" width="37" height="37" />
                   </li>
       </>
         ) : (
