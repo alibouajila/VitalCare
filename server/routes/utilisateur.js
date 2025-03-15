@@ -119,16 +119,32 @@ router.post("/logout", (req, res) => {
 
   res.status(200).json({ message: "Logged out successfully" });
 });
-//update nom et prenom
+//update infos
 router.put("/update-profile", verifyToken, async (req, res) => {
   try {
-    const { nom, prenom } = req.body;
+    const { nom, prenom, currentPassword } = req.body;
     const userId = req.user.id;
 
     if (!nom && !prenom) {
       return res.status(400).json({ message: "Provide nom or prenom to update" });
     }
+    if (!currentPassword) {
+      return res.status(400).json({ message: "Current password is required" });
+    }
 
+    // Fetch the user from the database
+    const user = await Utilisateur.findById(userId);
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    // Compare the entered password with the stored hashed password
+    const isMatch = await bcrypt.compare(currentPassword, user.password);
+    if (!isMatch) {
+      return res.status(400).json({ message: "Incorrect current password" });
+    }
+
+    // Update user data
     const updatedUser = await Utilisateur.findByIdAndUpdate(
       userId,
       { $set: { nom, prenom } },
@@ -172,7 +188,7 @@ router.put("/update-password", verifyToken, async (req, res) => {
     res.status(500).json({ message: "Server error", error });
   }
 });
-router.get("/userinfo/", verifyToken, async (req, res) => {
+router.get("/userinfos", verifyToken, async (req, res) => {
   try {
     const userId = req.user.id;
     const user = await Utilisateur.findById(userId).select("-password");

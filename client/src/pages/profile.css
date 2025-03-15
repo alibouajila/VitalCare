@@ -1,0 +1,77 @@
+/* Profile container styling */
+.profile-container {
+    width: 50%;
+    margin: 50px auto;
+    margin-top: 6%;
+    padding: 20px;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    text-align: center;
+  }
+  
+  /* Title styling */
+  .title1 {
+    color: #211C84;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+  }
+  
+  /* Form styling */
+  .profile-form {
+    margin-top: 20px;
+  }
+  
+  /* Form group styling */
+  .form-group {
+    margin: 10px 0;
+    text-align: left;
+  }
+  
+  /* Label styling */
+  .form-group label {
+    display: block;
+    margin-bottom: 5px;
+    color: #211C84;
+  }
+  
+  /* Input field styling */
+  .input-field {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  /* Submit button styling */
+  .submit-btn {
+    background-color: #211C84;
+    color: white;
+    padding: 10px;
+    width: 100%;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+  }
+  
+  .submit-btn:hover {
+    background-color: #57539b;
+  }
+  
+  /* Message styling */
+  .message {
+    color: #211C84;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+  .reset-password{
+    color: rgb(40, 62, 128);
+    font-weight: bolder;
+    transition: 0.5s;
+  }
+  .reset-password:hover{
+    cursor: pointer;
+    color: #57539b;
+    transform: scale(1.04);
+    transition: 0.5s;
+  }
