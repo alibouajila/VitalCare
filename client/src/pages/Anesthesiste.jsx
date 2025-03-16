@@ -22,7 +22,20 @@ function Anesthesiste() {
   const patientClick = (patientId) => {
     navigate(`/fiche/id/${patientId}`);
   };
+  const handleDelete = async (id, event) => {
+    event.stopPropagation(); 
+    try {
+      const response = await api.delete(`http://localhost:3001/fiche/delete/${id}`, {
+        headers: { Authorization: `Bearer ${localStorage.getItem("accessToken")}` },
+      });
 
+      if (response.status === 200) {
+        setPatients((prevPatients) => prevPatients.filter((p) => p._id !== id));
+      }
+    } catch (error) {
+      console.error("Erreur lors de la suppression du patient:", error);
+    }
+  };
   return (
     <>
     <div className="container">
@@ -44,8 +57,9 @@ function Anesthesiste() {
           .filter((p) => p.numeroDossier.includes(search))
           .map((patient) => (
             <li className="litem" key={patient._id} onClick={() => patientClick(patient._id)}>
-              {patient.nom} {patient.prenom} - {patient.numeroDossier}
-            </li>
+  <span>{patient.nom} {patient.prenom} - {patient.numeroDossier}</span>
+  <img   onClick={(e) => handleDelete(patient._id, e)} className="delete" src="/assets/delete.png" alt="Delete Icon" width="20" height="20" />      
+        </li>
           ))}
       </ul>
     </div>   

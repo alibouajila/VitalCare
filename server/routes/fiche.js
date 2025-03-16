@@ -35,9 +35,6 @@ router.post("/add", verifyToken, async (req, res) => {
 });
 router.delete("/delete/:id", verifyToken, async (req, res) => {
   try {
-    if (req.user.type !== "medecin") {
-      return res.status(403).json({ message: "Accès refusé. Seuls les médecins peuvent supprimer un dossier patient." });
-    }
     const ficheToDelete = await FichePatient.findByIdAndDelete(req.params.id);
 
     if (!ficheToDelete) {
