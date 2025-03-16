@@ -47,8 +47,9 @@ navigate("/")
           .filter((p) => p.numeroDossier.includes(search))
           .map((patient) => (
             <li className="litem" key={patient._id} onClick={() => patientClick(patient._id)}>
-              {patient.nom} {patient.prenom} - {patient.numeroDossier}
-            </li>
+  <span>{patient.nom} {patient.prenom} - {patient.numeroDossier}</span>
+  <img className="delete" src="/assets/delete.png" alt="Delete Icon" width="20" height="20" />      
+        </li>
           ))}
       </ul>
     </div>   

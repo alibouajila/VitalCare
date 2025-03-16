@@ -59,4 +59,21 @@
   .signup-button:hover {
     background-color: #0056b3;
   }
+  .litem {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+    cursor: pointer;
+  }
   
+  .delete {
+    margin-left: auto; 
+    transition: 0.5s;
+  }
+  .delete:hover{
+    cursor: pointer;
+    background-color: #857878;
+    transition: 0.5s;
+  }
