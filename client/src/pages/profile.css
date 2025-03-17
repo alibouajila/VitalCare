@@ -98,12 +98,18 @@
   position: relative;
 }
 
-.close-btn {
+.close-btnn {
   position: absolute;
   top: 10px;
   right: 10px;
   font-size: 24px;
   cursor: pointer;
+  transition: 0.5s;
+}
+.close-btnn:hover{
+  color: red;
+  border-radius: 40%;
+  transform: scale(1.02);
 }
 
 .reset-password-btn {

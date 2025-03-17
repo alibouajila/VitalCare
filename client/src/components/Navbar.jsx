@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import {jwtDecode} from "jwt-decode"; // ✅ Correct import for frontend
 import "./navbar.css";
 
 const Navbar = () => {
@@ -27,7 +28,15 @@ const TakeToProfile=()=>{
 
     return () => window.removeEventListener("storage", handleAuthChange);
   }, []);
-
+  const isAnesthesist = () => {
+    const token=localStorage.getItem("accessToken")
+    try {
+      const decoded = jwtDecode(token);
+      return decoded.type === "anesthesiste"; 
+    } catch (error) {
+      return false;
+    }
+  };
   return (
     <nav className="navbar">
       <div className="logo">
@@ -38,9 +47,16 @@ const TakeToProfile=()=>{
                   <li>
                   <img onClick={TakeToProfile} className="profile" src="/assets/profile.png" alt="Add Icon" width="40" height="40" />
                   </li>
+                  {isAnesthesist() && (
+              <li>
+                <img className="profile" src="/assets/notif.png" alt="Notification Icon" width="37" height="37" />
+              </li>
+            )}
+
                   <li>
                   <img onClick={handleLogout} className="profile" src="/assets/logout.png" alt="Add Icon" width="37" height="37" />
                   </li>
+                  
       </>
         ) : (
           <>

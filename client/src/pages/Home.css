@@ -70,10 +70,9 @@
   
   .delete {
     margin-left: auto; 
-    transition: 0.5s;
   }
   .delete:hover{
     cursor: pointer;
-    background-color: #857878;
-    transition: 0.5s;
+    border-radius: 50%;
+    transform: scale(1.2);
   }

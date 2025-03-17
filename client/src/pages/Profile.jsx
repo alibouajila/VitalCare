@@ -179,7 +179,7 @@ function Profile() {
       {showModal && (
         <div className="modall">
           <div className="modal-content">
-            <span className="close-btn" onClick={() => setShowModal(false)}>
+            <span className="close-btnn" onClick={() => setShowModal(false)}>
               &times;
             </span>
             <h3>Réinitialiser le mot de passe</h3>
