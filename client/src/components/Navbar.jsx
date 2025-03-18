@@ -5,11 +5,15 @@ import "./navbar.css";
 
 const Navbar = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem("accessToken"));
+  const [notifOpen, setNotifOpen] = useState(false);
   const navigate = useNavigate();
 const TakeToProfile=()=>{
   navigate("/profile")
 }
-  const handleLogout =async () => {
+const handleNotif = () => {
+  setNotifOpen((prev) => !prev);
+};
+  const handleLogout =async () =>  {
     await fetch("http://localhost:3001/user/logout", {
       method: "POST",
       credentials: "include",
@@ -48,8 +52,13 @@ const TakeToProfile=()=>{
                   <img onClick={TakeToProfile} className="profile" src="/assets/profile.png" alt="Add Icon" width="40" height="40" />
                   </li>
                   {isAnesthesist() && (
-              <li>
-                <img className="profile" src="/assets/notif.png" alt="Notification Icon" width="37" height="37" />
+              <li className="relative">
+                <img onClick={handleNotif} className="profile" src="/assets/notif.png" alt="Notification Icon" width="37" height="37" />
+                {notifOpen && (
+                  <div className="notif-menu">
+                    <p>No new notifications</p>
+                  </div>
+                )}
               </li>
             )}
 
