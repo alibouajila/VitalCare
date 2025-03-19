@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 
 const fichePatientSchema = new mongoose.Schema({
   // 🔹 Informations générales du patient
+  treated:{type:Boolean,default:false},
   nom: { type: String, required: true, trim: true },
   prenom: { type: String, required: true, trim: true },
   numeroDossier: { type: String, required: true, unique: true, trim: true },
