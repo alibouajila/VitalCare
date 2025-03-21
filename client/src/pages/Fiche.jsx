@@ -83,15 +83,17 @@ const Fiche = () => {
               <p><strong>Medecin Responsable:</strong> {fiche.medecinAR}</p>
                 <p><strong>Chirurgien:</strong> {fiche.chirurgien || 'Non précisé'}</p>
                 <p><strong>Diagnostic:</strong> {fiche.diagnostic || 'Non précisé'}</p>
-                <p><strong>Intervention Prévue:</strong> {fiche.interventionPrevue || 'Non précisé'}</p>
-                <p><strong>Protocole Anesthésique:</strong> {fiche.protocoleAnesthesique || 'Non précisé'}</p>
+                <p><strong>chirurgie/Anesthesie</strong> {fiche.chirurgieAnesthesie|| 'Non précisé'}</p>
+                <p><strong>medicaux/Gyneco | Obstetricaux</strong> {fiche.medicauxGynecoObstetricaux || 'Non précisé'}</p>
               </div>
             </div>
           </section>
           <section>
           <h3>Bilan clinique</h3>
           <div className="card">
+             <p><strong>allergie :</strong> {fiche.allergie || 'Non précisé'}</p>
               <p><strong>Respiratoire :</strong> {fiche.respiratoire|| 'Non précisé'}</p>
+              <p><strong>medication en cours :</strong> {fiche.medicationEnCours|| 'Non précisé'}</p>
               <p><strong>cardio Vasculaire:</strong> {fiche.cardioVasculaire|| 'Non précisé'}</p>
               <p><strong>intubations:</strong> {fiche.intubations|| 'Non précisé'} </p>
               <p><strong>autres:</strong> {fiche.autres|| 'Non précisé'}</p>
