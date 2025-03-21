@@ -43,8 +43,6 @@ function Medecin() {
     medicauxGynecoObstetricaux: "",
     allergie: "",
     medicationEnCours: "",
-    respiratoire: "",
-    cardioVasculaire: "",
     biochimie: {},
     bilanHepatique: {},
     hemostase: {},
@@ -143,12 +141,18 @@ function Medecin() {
           placeholder="Prénom"
           className="input-field"
           onChange={(e) => setNewPatient({ ...newPatient, prenom: e.target.value })}
-        />
+          />
+          <input
+            type="text"
+            placeholder="Numéro Dossier"
+            className="input-field"
+            onChange={(e) => setNewPatient({ ...newPatient, numeroDossier: e.target.value })}
+          />
         <input
           type="text"
-          placeholder="Numéro Dossier"
+          placeholder="Chirurgien"
           className="input-field"
-          onChange={(e) => setNewPatient({ ...newPatient, numeroDossier: e.target.value })}
+          onChange={(e) => setNewPatient({ ...newPatient, chirurgien: e.target.value })}
         />
         <input
           type="number"
@@ -180,6 +184,42 @@ function Medecin() {
           className="input-field"
           onChange={(e) => setNewPatient({ ...newPatient, rhesus: e.target.value })}
         />
+         <input
+          type="text"
+          placeholder="Diagnostic"
+          className="input-field"
+          onChange={(e) => setNewPatient({ ...newPatient, diagnostic: e.target.value })}
+        />
+         <input
+          type="text"
+          placeholder="Intervention prévue"
+          className="input-field"
+          onChange={(e) => setNewPatient({ ...newPatient, interventionPrevue: e.target.value })}
+        />
+         <input
+          type="text"
+          placeholder="Chirgurie / Anesthésie"
+          className="input-field"
+          onChange={(e) => setNewPatient({ ...newPatient, chirurgieAnesthesie: e.target.value })}
+        />
+         <input
+          type="text"
+          placeholder="medicaux/Gyneco | Obstetricaux"
+          className="input-field"
+          onChange={(e) => setNewPatient({ ...newPatient, medicauxGynecoObstetricaux: e.target.value })}
+          />
+          <input
+           type="text"
+           placeholder="Allergie"
+           className="input-field"
+           onChange={(e) => setNewPatient({ ...newPatient, allergie: e.target.value })}
+         />
+          <input
+           type="text"
+           placeholder="medication en cours"
+           className="input-field"
+           onChange={(e) => setNewPatient({ ...newPatient, medicationEnCours: e.target.value })}
+         />
         <button type="submit" className="submit-btn">
           Ajouter
         </button>

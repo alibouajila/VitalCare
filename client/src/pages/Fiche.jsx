@@ -82,6 +82,7 @@ const Fiche = () => {
               <div className="card">
               <p><strong>Medecin Responsable:</strong> {fiche.medecinAR}</p>
                 <p><strong>Chirurgien:</strong> {fiche.chirurgien || 'Non précisé'}</p>
+                <p><strong>Intervention prevue:</strong> {fiche.interventionPrevue || 'Non précisé'}</p>
                 <p><strong>Diagnostic:</strong> {fiche.diagnostic || 'Non précisé'}</p>
                 <p><strong>chirurgie/Anesthesie</strong> {fiche.chirurgieAnesthesie|| 'Non précisé'}</p>
                 <p><strong>medicaux/Gyneco | Obstetricaux</strong> {fiche.medicauxGynecoObstetricaux || 'Non précisé'}</p>

@@ -19,6 +19,7 @@ const fichePatientSchema = new mongoose.Schema({
 
   // 🔹 Détails de l'opération et historique médical
   diagnostic: { type: String, trim: true, default: "" },
+  interventionPrevue: { type: String, trim: true, default: "" },
   chirurgieAnesthesie: { type: String, trim: true, default: "" },
   medicauxGynecoObstetricaux: { type: String, trim: true, default: "" },
   allergie: { type: String, trim: true, default: "" },
