@@ -41,7 +41,18 @@ function Anesthesiste() {
     <div className="container">
     <h2 className="title1">📂 Dashboard Anesthésiste</h2>
       <h2>Liste des Patients</h2>
-      
+      <div className="indicators">
+        <div className="ind">
+      <img src="/assets/blue.png" alt="Delete Icon" width="20" height="20" />     
+      <p>New</p>
+        </div>
+        <div className="ind">
+        <img src="/assets/gris.png" alt="Delete Icon" width="20" height="20" />    
+              <p>Treated</p>
+
+        </div>
+
+      </div>
       {/* 🔍 Barre de recherche */}
       <input
         className="input-field"
@@ -52,16 +63,30 @@ function Anesthesiste() {
       />
 
       {/* 📋 Liste des patients */}
-      <ul className="patient-list">
-        {patients
-          .filter((p) => p.numeroDossier.includes(search))
-          .map((patient) => (
-            <li className="litem" key={patient._id} onClick={() => patientClick(patient._id)}>
-  <span>{patient.nom} {patient.prenom} - {patient.numeroDossier}</span>
-  <img   onClick={(e) => handleDelete(patient._id, e)} className="delete" src="/assets/delete.png" alt="Delete Icon" width="20" height="20" />      
-        </li>
-          ))}
-      </ul>
+<ul className="patient-list">
+  {patients
+    .sort((a, b) => a.treated - b.treated) // Sort untreated (false) first
+    .filter((p) => p.numeroDossier.includes(search))
+    .map((patient) => (
+      <li
+      className="litem"
+      id={`${!patient.treated ? "blue-text" : ""}`}
+     key={patient._id}
+     onClick={() => patientClick(patient._id)}
+      >
+        <span>{patient.nom} {patient.prenom} - {patient.numeroDossier}</span>
+        <img
+          onClick={(e) => handleDelete(patient._id, e)}
+          className="delete"
+          src="/assets/delete.png"
+          alt="Delete Icon"
+          width="20"
+          height="20"
+        />
+      </li>
+    ))}
+</ul>
+
     </div>   
  </>
 

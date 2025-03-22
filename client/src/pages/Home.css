@@ -67,7 +67,9 @@
     border-bottom: 1px solid #ddd;
     cursor: pointer;
   }
-  
+  #blue-text{
+    background-color:#ddebf7;
+  }
   .delete {
     margin-left: auto; 
   }
