@@ -36,10 +36,10 @@ function Anesthesiste() {
       console.error("Erreur lors de la suppression du patient:", error);
     }
   };
-  const handleEdit=async(id,event)=>{
+  const handleEdit=async(patientId,event)=>{
     event.stopPropagation(); 
-    console.log("edit")
-  }
+    navigate(`/edit/id/${patientId}`);
+   }
   return (
     <>
     <div className="container">

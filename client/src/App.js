@@ -9,6 +9,7 @@ import Fiche from "./pages/Fiche";
 import Footer from"./components/Footer"
 import ListeDesPatients from "./pages/ListeDesPatients";
 import Profile from "./pages/Profile";
+import Edit from "./pages/Edit";
 function App() {
   return (
     <Router>
@@ -22,6 +23,7 @@ function App() {
         <Route path="/fiche/id/:id" element={<Fiche />} />
         <Route path="/liste-des-patients" element={<ListeDesPatients />} />
         <Route path="/profile" element={<Profile />} />
+        <Route path="/edit/id/:id" element={<Edit />} />
 
       </Routes>
       <Footer/>

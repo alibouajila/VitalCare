@@ -31,7 +31,6 @@ const Fiche = () => {
         });
   
         const ficheData = response.data.fiche;
-        // Transform biochimie and bilanHepatique objects into arrays of key-value pairs
         if (ficheData.biochimie && typeof ficheData.biochimie === 'object') {
           ficheData.biochimie = Object.entries(ficheData.biochimie);
         }
@@ -171,13 +170,13 @@ const Fiche = () => {
             <div className="card">
               <p><strong>Urgence:</strong> &nbsp;&nbsp;&nbsp;{fiche.classe.urgence ? 'Oui' : 'Non'}</p>
               <p><strong>Jeune:</strong>&nbsp;&nbsp;&nbsp; {fiche.classe.jeune ? 'Oui' : 'Non'}</p>
-              <p><strong></strong>&nbsp;&nbsp;&nbsp; {fiche.classe.paragraphe}</p>
+              <p><strong>Autres: </strong>&nbsp;&nbsp;&nbsp; {fiche.classe.paragraphe}</p>
             </div>
           </section>          <section>
             <h3>Risques majeurs</h3>
             <div className="card">
               <p><strong>protocole Anesthesique:</strong> &nbsp;&nbsp;&nbsp;{fiche.classe.protocoleAnesthesique ? fiche.classe.protocoleAnesthesique : "AG"}</p>
-              <p><strong>post Operatoire</strong>&nbsp;&nbsp;&nbsp;</p>
+              <p><strong>post Operatoire :</strong>&nbsp;&nbsp;&nbsp;</p>
               <p><strong>antibiotherapie:</strong> &nbsp;&nbsp;&nbsp;{fiche.postOperatoire.antibiotherapie ? 'Oui' : 'Non'}</p>
               <p><strong>analgesie:</strong> &nbsp;&nbsp;&nbsp;{fiche.postOperatoire.analgesie ? 'Oui' : 'Non'}</p>
               <p><strong>anticoagulants:</strong> &nbsp;&nbsp;&nbsp;{fiche.postOperatoire.anticoagulants ? 'Oui' : 'Non'}</p>
