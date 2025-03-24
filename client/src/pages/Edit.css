@@ -1,12 +1,67 @@
 .Edit-container {
-    max-width: 600px;
+    max-width: 800px;
     margin: 0 auto;
+    margin-top: 80px;
     padding: 20px;
-    background-color: #f9f9f9;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   }
   
+  .Edit-title {
+    text-align: center;
+    margin-bottom: 30px;
+  }
+  
+  .Edit-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  .Edit-section {
+    background: #f9f9f9;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  }
+  
+  .Edit-section h3 {
+    margin-top: 0;
+    margin-bottom: 15px;
+    color: #333;
+  }
+  
+  .Edit-input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 16px;
+  }
+  
+  .Edit-button {
+    background-color: #4D55CC;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.1s;
+  }
+  
+  .Edit-button:hover {
+    background-color: #3a3c61;
+  }
+  
+  .Edit-loading, .Edit-error {
+    text-align: center;
+    padding: 50px;
+    font-size: 18px;
+  }
+  
+  .Edit-error {
+    color: #f44336;
+  }
   .Edit-title {
     text-align: center;
     color: #211C84;
@@ -45,9 +100,73 @@
     border: none;
     cursor: pointer;
     border-radius: 5px;
+    width:100%;
   }
   
   .Edit-button:hover {
     background-color: #4D55CC;
+  }
+  /* Checkbox styling */
+.checkbox-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 15px;
+  }
+  
+  .checkbox-label {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    font-size: 16px;
+    user-select: none;
+  }
+  
+  .checkbox-input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+  }
+  
+  .checkbox-custom {
+    position: relative;
+    height: 20px;
+    width: 20px;
+    background-color: #fff;
+    border: 2px solid #ddd;
+    border-radius: 4px;
+    margin-right: 10px;
+    transition: all 0.3s;
+  }
+  
+  .checkbox-label:hover .checkbox-custom {
+    background-color: #f1f1f1;
+  }
+  
+  .checkbox-input:checked ~ .checkbox-custom {
+    background-color: #4D55CC;
+    border-color: #4D55CC;
+  }
+  
+  .checkbox-custom:after {
+    content: "";
+    position: absolute;
+    display: none;
+  }
+  
+  .checkbox-input:checked ~ .checkbox-custom:after {
+    display: block;
+  }
+  
+  .checkbox-custom:after {
+    left: 6px;
+    top: 2px;
+    width: 5px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
   }
   

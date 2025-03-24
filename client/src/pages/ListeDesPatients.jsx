@@ -58,12 +58,23 @@ navigate("/")
       {/* 📋 Liste des patients */}
       <ul className="patient-list">
         {patients
-          .filter((p) => p.numeroDossier.includes(search))
-          .map((patient) => (
-            <li className="litem" key={patient._id} onClick={() => patientClick(patient._id)}>
+   .sort((a, b) => a.treated - b.treated) // Sort untreated (false) first
+   .filter((p) => p.numeroDossier.includes(search))
+   .map((patient) => (
+<li className="litem" id={`${!patient.treated ? "blue-text" : ""}`} key={patient._id} onClick={() => patientClick(patient._id)}>
   <span>{patient.nom} {patient.prenom} - {patient.numeroDossier}</span>
-  <img   onClick={(e) => handleDelete(patient._id, e)} className="delete" src="/assets/delete.png" alt="Delete Icon" width="20" height="20" />      
-        </li>
+  
+  <div className="icons-container">
+    <img
+      onClick={(e) => handleDelete(patient._id, e)}
+      className="delete"
+      src="/assets/delete.png"
+      alt="Delete Icon"
+      width="20"
+      height="20"
+    />
+  </div>
+</li>
           ))}
       </ul>
     </div>   

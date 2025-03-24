@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import { jwtDecode } from "jwt-decode";
 import api from "../utils/api";
 import "./Edit.css";
 
@@ -21,6 +22,16 @@ const Edit = () => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
+    const token = localStorage.getItem("accessToken");
+    if(token){
+        try{
+        const decoded = jwtDecode(token);
+        if (decoded.type === "medecin") {
+            navigate("/medecin");
+        }
+    }catch(error){
+        navigate("/login");  
+    }}
     const fetchFiche = async () => {
       try {
         const token = localStorage.getItem("accessToken");
@@ -30,7 +41,7 @@ const Edit = () => {
           },
         });
 
-        console.log("Données récupérées :", response.data.fiche); // Debugging
+        console.log("Données récupérées :", response.data.fiche);
         setFiche({
           ...response.data.fiche,
           traitement: response.data.fiche.traitement || { aArreter: "", aPoursuivre: "" },
@@ -44,7 +55,7 @@ const Edit = () => {
     };
 
     fetchFiche();
-  }, [id]);
+  }, [id,navigate]);
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -97,13 +108,10 @@ const Edit = () => {
 
           <label>Cardio-vasculaire :</label>
           <input type="text" name="cardioVasculaire" value={fiche.cardioVasculaire} onChange={handleChange} className="Edit-input" />
-
-          <label>Autres :</label>
-          <input type="text" name="autres" value={fiche.autres} onChange={handleChange} className="Edit-input" />
-
           <label>Intubations :</label>
           <input type="text" name="intubations" value={fiche.intubations} onChange={handleChange} className="Edit-input" />
-
+          <label>Autres :</label>
+          <input type="text" name="autres" value={fiche.autres} onChange={handleChange} className="Edit-input" />
           <label>Autres explorations :</label> 
           <input type="text" name="autresExplorations" value={fiche.autresExplorations} onChange={handleChange} className="Edit-input" />
         </div>
@@ -121,33 +129,76 @@ const Edit = () => {
         {/* Classe */}
         <div className="Edit-section">
           <h3>Classe</h3>
-          <label>
-            <input type="checkbox" name="classe.urgence" checked={fiche.classe.urgence} onChange={handleChange} />
-            Urgence
-          </label>
-          <label>
-            <input type="checkbox" name="classe.jeune" checked={fiche.classe.jeune} onChange={handleChange} />
-            Jeune
-          </label>
-          <label>Paragraphe :</label>
+          <div className="checkbox-container">
+            <label className="checkbox-label">
+              <input 
+                type="checkbox" 
+                name="classe.urgence" 
+                checked={fiche.classe.urgence} 
+                onChange={handleChange} 
+                className="checkbox-input"
+              />
+              <span className="checkbox-custom"></span>
+              Urgence
+            </label>
+            
+            <label className="checkbox-label">
+              <input 
+                type="checkbox" 
+                name="classe.jeune" 
+                checked={fiche.classe.jeune} 
+                onChange={handleChange} 
+                className="checkbox-input"
+              />
+              <span className="checkbox-custom"></span>
+              Jeune
+            </label>
+          </div>
+          
+          <label>Autres :</label>
           <input type="text" name="classe.paragraphe" value={fiche.classe.paragraphe} onChange={handleChange} className="Edit-input" />
         </div>
 
         {/* Risque majeurs */}
         <div className="Edit-section">
           <h3>Risque majeurs</h3>
-          <label>
-            <input type="checkbox" name="postOperatoire.antibiotherapie" checked={fiche.postOperatoire.antibiotherapie} onChange={handleChange} />
-            Antibiothérapie
-          </label>
-          <label>
-            <input type="checkbox" name="postOperatoire.analgesie" checked={fiche.postOperatoire.analgesie} onChange={handleChange} />
-            Analgésie
-          </label>
-          <label>
-            <input type="checkbox" name="postOperatoire.anticoagulants" checked={fiche.postOperatoire.anticoagulants} onChange={handleChange} />
-            Anticoagulants
-          </label>
+          <div className="checkbox-container">
+            <label className="checkbox-label">
+              <input 
+                type="checkbox" 
+                name="postOperatoire.antibiotherapie" 
+                checked={fiche.postOperatoire.antibiotherapie} 
+                onChange={handleChange} 
+                className="checkbox-input"
+              />
+              <span className="checkbox-custom"></span>
+              Antibiothérapie
+            </label>
+            
+            <label className="checkbox-label">
+              <input 
+                type="checkbox" 
+                name="postOperatoire.analgesie" 
+                checked={fiche.postOperatoire.analgesie} 
+                onChange={handleChange} 
+                className="checkbox-input"
+              />
+              <span className="checkbox-custom"></span>
+              Analgésie
+            </label>
+            
+            <label className="checkbox-label">
+              <input 
+                type="checkbox" 
+                name="postOperatoire.anticoagulants" 
+                checked={fiche.postOperatoire.anticoagulants} 
+                onChange={handleChange} 
+                className="checkbox-input"
+              />
+              <span className="checkbox-custom"></span>
+              Anticoagulants
+            </label>
+          </div>
         </div>
 
         <button type="submit" className="Edit-button">Enregistrer</button>

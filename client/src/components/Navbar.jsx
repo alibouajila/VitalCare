@@ -44,7 +44,7 @@ const handleNotif = () => {
   return (
     <nav className="navbar">
       <div className="logo">
-        <Link to="/">Vitalcare</Link>
+        <Link id="titre" to="/">Vitalcare</Link>
       </div>
       <ul className="nav-links">
         {isLoggedIn ? (<>
