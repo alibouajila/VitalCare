@@ -20,7 +20,9 @@ const Edit = () => {
 
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-
+  const AddPatienPage=()=>{
+navigate("/anesthesiste")
+  }
   useEffect(() => {
     const token = localStorage.getItem("accessToken");
     if(token){
@@ -80,7 +82,7 @@ const Edit = () => {
     e.preventDefault();
     try {
       const token = localStorage.getItem("accessToken");
-      await api.put(`http://localhost:3001/fiche/update/${id}`, fiche, {
+      await api.put(`http://localhost:3001/fiche/update/${id}`, { ...fiche, treated: true }, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -96,10 +98,11 @@ const Edit = () => {
   if (error) return <div className="Edit-error">{error}</div>;
 
   return (
+    <>
     <div className="Edit-container">
       <h2 className="Edit-title">Modifier la fiche patient</h2>
+      <img onClick={AddPatienPage} className="addpatient" src="/assets/add.png" alt="Add Icon" width="50" height="50" />
       <form onSubmit={handleSubmit} className="Edit-form">
-        
         {/* Informations médicales */}
         <div className="Edit-section">
           <h3>Informations médicales</h3>
@@ -203,7 +206,8 @@ const Edit = () => {
 
         <button type="submit" className="Edit-button">Enregistrer</button>
       </form>
-    </div>
+    </div>    </>
+
   );
 };
 

@@ -10,6 +10,7 @@ const Fiche = () => {
   const [fiche, setFiche] = useState(null);
   const [loading, setLoading] = useState(true); 
   const [error, setError] = useState(null); 
+  const [isAnesthesist,setisAnesthesist]=useState(false)
   const AddPatienPage=()=>{
     const token=localStorage.getItem("accessToken")
     const decodedToken = jwtDecode(token);
@@ -20,10 +21,17 @@ const Fiche = () => {
       navigate("/anesthesiste")
     }
   }
+  const handleEdit=async(patientId)=>{
+    navigate(`/edit/id/${patientId}`);
+   }
   useEffect(() => {
     const fetchFiche = async () => {
       try {
         const token = localStorage.getItem('accessToken');
+        if(token){
+          const  decoded=jwtDecode(token);
+          setisAnesthesist(decoded.type==="anesthesiste")
+        }
         const response = await api.get(`http://localhost:3001/fiche/id/${id}`, {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -55,6 +63,8 @@ const Fiche = () => {
 
   if (loading) return <div>Chargement des informations...</div>;
   if (error) return <div>{error}</div>;
+
+  
   return (
     <div className="patient-info-page">
       {loading ? (
@@ -65,8 +75,11 @@ const Fiche = () => {
         <>
         <br></br><br></br><br></br>
 <h1>Patient informations</h1>
+<div className="icons">
 <img onClick={AddPatienPage} className="addpatient" src="/assets/add.png" alt="Add Icon" width="50" height="50" />
+{isAnesthesist?<img    onClick={() => handleEdit(fiche._id)} className="edit-fiche" src="/assets/edit.png" alt="Add Icon" width="50" height="50" />:null}
 <img onClick={Print} className="print" src="/assets/print.png" alt="Add Icon" width="60" height="60" />
+</div>
           <section>
             <div className="card-container">
               <div className="card">

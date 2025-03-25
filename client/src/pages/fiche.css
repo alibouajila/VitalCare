@@ -95,27 +95,23 @@
   margin-bottom: 20px;
 }
 .addpatient:hover{
-  background-color:#2d2d37cf;
+  transform: scale(1.1);
   cursor: pointer;
   transition: 0.2s;
-}
-.addpatient2{
-  margin-top: 74px;
 }
 .addpatient2:hover{
-  background-color:#2d2d37cf;
+  transform: scale(1.04);
   cursor: pointer;
   transition: 0.2s;
 }
-.print{
-position: relative;
-left: 1400px;
-margin-right: 20px;
-top: -58px;
 
-}
 .print:hover{
-  background-color:#2d2d37cf;
+  transform: scale(1.2);
+  cursor: pointer; 
+  transition: 0.2s; 
+}
+.edit-fiche:hover{
+transform: scale(1.08);
   cursor: pointer; 
   transition: 0.2s; 
 }
@@ -140,4 +136,9 @@ top: -58px;
 .ind p {
   text-align: left; 
   min-width: 80px;
+}
+.icons{
+  display: flex;
+  gap: 670px;
+
 }
