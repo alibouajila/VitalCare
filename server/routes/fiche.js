@@ -2,7 +2,7 @@ const express = require("express");
 const FichePatient = require("../models/patient"); 
 const { verifyToken } = require("../middlewares/auth");
 const router = express.Router();
-
+const {createNotification} =require("./notifications")
 router.post("/add", verifyToken, async (req, res) => {
   try {
     if (req.user.type !== "medecin") {
@@ -26,6 +26,14 @@ router.post("/add", verifyToken, async (req, res) => {
     });
 
     await newFiche.save();
+    const notificationMessage = `Nouveau patient: ${prenom} ${nom} (Dossier #${numeroDossier})`;
+    
+    await createNotification(
+      "anesthesiste",
+      notificationMessage,
+      `/fiches/${newFiche._id}`,
+    );
+
     res.status(201).json({ message: "Dossier patient ajouté avec succès !", fiche: newFiche });
 
   } catch (error) {

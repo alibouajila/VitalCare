@@ -197,8 +197,11 @@ const Fiche = () => {
           </section>
         </>
       )}
-    </div>
-  );
+      <div className="back">
+      <img onClick={AddPatienPage} className="addpatient" src="/assets/add.png" alt="Add Icon" width="50" height="50" />
+      </div>
+      </div>
+    );
   
   
 };

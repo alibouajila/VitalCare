@@ -4,10 +4,13 @@ const cors = require("cors");
 const { verifyToken } = require("./middlewares/auth");
 const utilisateur = require("./routes/utilisateur");
 const FichePatient = require("./routes/fiche");
+const { router: notificationRoutes } = require("./routes/notifications"); // ✅ Correct import
 const http = require("http"); // Import HTTP module
-
 const app = express();
 const server = http.createServer(app); // Create an HTTP server
+
+// Import User model
+const User = require("./models/utilisateur"); // Add this import
 
 // Initialize Socket.io
 const io = require("socket.io")(server, {
@@ -21,10 +24,17 @@ app.use(cors({
   origin: "http://localhost:3000",
   credentials: true,
 }));
-
-// Socket.io connection
+app.io = io;
+// Socket.io connection handling
 io.on("connection", (socket) => {
   console.log("A user connected");
+
+  // Register user by saving their socketId to the User model
+  socket.on("register", (userId) => {
+    User.findOneAndUpdate({ _id: userId }, { socketId: socket.id })
+      .then(user => console.log('User socketId saved:', socket.id))
+      .catch(err => console.error('Error saving socketId:', err));
+  });
 
   socket.on("disconnect", () => {
     console.log("A user disconnected");
@@ -35,6 +45,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use("/user", utilisateur);
 app.use("/fiche", FichePatient);
+app.use('/notifications', notificationRoutes);
 
 // Connect to MongoDB
 mongoose.connect("mongodb://localhost:27017/Hospital", {})
@@ -48,28 +59,6 @@ app.get("/verify-token", verifyToken, (req, res) => {
 
 app.get("/", (req, res) => {
   res.send("Hello, World!");
-});
-
-// Add Patient Route with Notification
-app.post("/notif/add-patient", async (req, res) => {
-  try {
-    const newPatient = new FichePatient(req.body);
-    await newPatient.save();
-
-    // Emit notification only if the patient is NOT treated
-    if (!newPatient.treated) {
-      io.emit("new-patient", { 
-        id: newPatient._id,
-        nom: newPatient.nom,
-        prenom: newPatient.prenom,
-        numeroDossier: newPatient.numeroDossier
-      });
-    }
-
-    res.status(201).json(newPatient);
-  } catch (error) {
-    res.status(500).json({ message: "Error adding patient", error });
-  }
 });
 
 // Start the server
