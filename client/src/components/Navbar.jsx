@@ -135,6 +135,32 @@ const Navbar = () => {
     }
   };
 
+  const markAsRead = async (id) => {
+    try {
+      const token = localStorage.getItem("accessToken");
+
+      // Mark the notification as read in the backend
+      await fetch(`http://localhost:3001/notifications/${id}/mark-read`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        credentials: "include",
+      });
+
+      // Update the notification status to read in the state
+      setNotifications((prevNotifications) =>
+        prevNotifications.map((notif) =>
+          notif._id === id ? { ...notif, read: true } : notif
+        )
+      );
+      setUnreadCount((prevCount) => Math.max(prevCount - 1, 0)); // Decrease unread count
+    } catch (error) {
+      console.error("Error marking notification as read:", error);
+    }
+  };
+
   return (
     <nav className="navbar">
       <div className="logo">
@@ -179,7 +205,13 @@ const Navbar = () => {
                           <div key={notif._id} className={`notification-item ${notif.read ? "read" : "unread"}`}>
                             <p>{notif.message}</p>
                             {notif.link && (
-                              <button onClick={() => navigate(notif.link)} className="view-btn">
+                              <button
+                                onClick={() => {
+                                  navigate(notif.link);
+                                  markAsRead(notif._id); 
+                                }}
+                                className="view-btn"
+                              >
                                 View
                               </button>
                             )}
