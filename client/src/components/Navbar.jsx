@@ -18,7 +18,6 @@ const Navbar = () => {
     setNotifOpen((prev) => !prev);
     if (!notifOpen) {
       await fetchNotifications();
-      await markAllAsRead();
     }
   };
 
@@ -38,10 +37,10 @@ const Navbar = () => {
     };
 
     window.addEventListener("storage", handleAuthChange);
-    fetchUnreadCount();
+    if (isLoggedIn) fetchUnreadCount(); // Fetch unread count when logged in
 
     return () => window.removeEventListener("storage", handleAuthChange);
-  }, []);
+  }, [isLoggedIn]); // Re-fetch unread count on login status change
 
   const isAnesthesist = () => {
     const token = localStorage.getItem("accessToken");
@@ -87,7 +86,7 @@ const Navbar = () => {
       });
 
       const unreadData = await unreadResponse.json();
-      setUnreadCount(unreadData.count);
+      setUnreadCount(unreadData.count); // Update unread count
     } catch (error) {
       console.error("Error fetching unread notifications count:", error);
     }
@@ -110,7 +109,7 @@ const Navbar = () => {
       setNotifications((prevNotifications) =>
         prevNotifications.map((notif) => ({ ...notif, read: true }))
       );
-      setUnreadCount(0);
+      setUnreadCount(0); // Reset unread count after marking all as read
     } catch (error) {
       console.error("Error marking notifications as read:", error);
     }
@@ -130,7 +129,7 @@ const Navbar = () => {
         prevNotifications.filter((notif) => notif._id !== id)
       );
 
-      setUnreadCount((prevCount) => Math.max(prevCount - 1, 0));
+      setUnreadCount((prevCount) => Math.max(prevCount - 1, 0)); // Adjust unread count after deleting
     } catch (error) {
       console.error("Error deleting notification:", error);
     }
