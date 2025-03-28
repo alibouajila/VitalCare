@@ -34,6 +34,27 @@ router.get('/unread-count', verifyToken, async (req, res) => {
     res.status(500).json({ message: 'Server error' });
   }
 });
+router.delete("/:id", verifyToken, async (req, res) => {
+  try {
+    const { id } = req.params;
+    const notification = await Notification.findById(id);
+
+    if (!notification) {
+      return res.status(404).json({ message: "Notification not found" });
+    }
+
+    // Ensure the notification belongs to the authenticated user
+    if (notification.userId.toString() !== req.user.id) {
+      return res.status(403).json({ message: "Unauthorized" });
+    }
+
+    await Notification.findByIdAndDelete(id);
+    res.json({ success: true, message: "Notification deleted successfully" });
+  } catch (err) {
+    console.error("Error deleting notification:", err);
+    res.status(500).json({ message: "Server error" });
+  }
+});
 
 // Mark notification as read
 router.post('/mark-read', verifyToken, async (req, res) => {

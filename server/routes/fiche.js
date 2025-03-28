@@ -31,7 +31,7 @@ router.post("/add", verifyToken, async (req, res) => {
     await createNotification(
       "anesthesiste",
       notificationMessage,
-      `/fiches/${newFiche._id}`,
+      `/fiche/id/${newFiche._id}`,
     );
 
     res.status(201).json({ message: "Dossier patient ajouté avec succès !", fiche: newFiche });
@@ -124,6 +124,5 @@ router.get("/id/:id", verifyToken, async (req, res) => {
     res.status(500).json({ message: "Erreur serveur. Veuillez réessayer plus tard.", error: error.message });
   }
 });
-
 
 module.exports = router;
