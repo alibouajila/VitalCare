@@ -38,6 +38,7 @@ const Navbar = () => {
     };
 
     window.addEventListener("storage", handleAuthChange);
+    fetchUnreadCount();
 
     return () => window.removeEventListener("storage", handleAuthChange);
   }, []);
@@ -55,17 +56,18 @@ const Navbar = () => {
   const fetchNotifications = async () => {
     try {
       const token = localStorage.getItem("accessToken");
+
       const response = await fetch("http://localhost:3001/notifications", {
         method: "GET",
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
+        headers: { Authorization: `Bearer ${token}` },
         credentials: "include",
       });
+
       const data = await response.json();
+
       if (response.ok) {
         setNotifications(data);
-        setUnreadCount(data.filter((notif) => !notif.read).length);
+        fetchUnreadCount(); // Update unread count after fetching notifications
       } else {
         console.error("Failed to fetch notifications:", data.message);
       }
@@ -74,9 +76,27 @@ const Navbar = () => {
     }
   };
 
+  const fetchUnreadCount = async () => {
+    try {
+      const token = localStorage.getItem("accessToken");
+
+      const unreadResponse = await fetch("http://localhost:3001/notifications/unread-count", {
+        method: "GET",
+        headers: { Authorization: `Bearer ${token}` },
+        credentials: "include",
+      });
+
+      const unreadData = await unreadResponse.json();
+      setUnreadCount(unreadData.count);
+    } catch (error) {
+      console.error("Error fetching unread notifications count:", error);
+    }
+  };
+
   const markAllAsRead = async () => {
     try {
       const token = localStorage.getItem("accessToken");
+
       await fetch("http://localhost:3001/notifications/mark-read", {
         method: "POST",
         headers: {
@@ -85,6 +105,11 @@ const Navbar = () => {
         },
         credentials: "include",
       });
+
+      // Update UI to reflect that all notifications are read
+      setNotifications((prevNotifications) =>
+        prevNotifications.map((notif) => ({ ...notif, read: true }))
+      );
       setUnreadCount(0);
     } catch (error) {
       console.error("Error marking notifications as read:", error);
@@ -94,11 +119,10 @@ const Navbar = () => {
   const deleteNotification = async (id) => {
     try {
       const token = localStorage.getItem("accessToken");
+
       await fetch(`http://localhost:3001/notifications/${id}`, {
         method: "DELETE",
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
+        headers: { Authorization: `Bearer ${token}` },
         credentials: "include",
       });
 
@@ -148,22 +172,24 @@ const Navbar = () => {
                     {notifications.length === 0 ? (
                       <p>No new notifications</p>
                     ) : (
-                      notifications.map((notif) => (
-                        <div
-                          key={notif._id}
-                          className={`notification-item ${notif.read ? "read" : "unread"}`}
-                        >
-                          <p>{notif.message}</p>
-                          {notif.link && (
-                            <button onClick={() => navigate(notif.link)} className="view-btn">
-                              View
+                      <>
+                        <button className="mark-all-btn" onClick={markAllAsRead}>
+                          Mark All as Read
+                        </button>
+                        {notifications.map((notif) => (
+                          <div key={notif._id} className={`notification-item ${notif.read ? "read" : "unread"}`}>
+                            <p>{notif.message}</p>
+                            {notif.link && (
+                              <button onClick={() => navigate(notif.link)} className="view-btn">
+                                View
+                              </button>
+                            )}
+                            <button onClick={() => deleteNotification(notif._id)} className="delete-btn">
+                              Delete
                             </button>
-                          )}
-                          <button onClick={() => deleteNotification(notif._id)} className="delete-btn">
-                            Delete
-                          </button>
-                        </div>
-                      ))
+                          </div>
+                        ))}
+                      </>
                     )}
                   </div>
                 )}
