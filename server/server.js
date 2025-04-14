@@ -10,7 +10,7 @@ const app = express();
 const server = http.createServer(app); // Create an HTTP server
 
 // Import User model
-const User = require("./models/utilisateur"); // Add this import
+const User = require("./models/utilisateur"); 
 
 // Initialize Socket.io
 const io = require("socket.io")(server, {

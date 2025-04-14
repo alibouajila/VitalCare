@@ -6,16 +6,20 @@
     height: calc(100vh - 60px); 
     margin-top: 60px; 
     padding: 20px; 
+    
   }
   
   .signup-form {
     background: #112d4e;
     padding: 40px;
     border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-    text-align: center;
+    max-width: 400px;
+    border-radius: 20px;
+    box-shadow: 20px 30px 30px rgba(0, 0, 0, 0.2);
     width: 100%;
     max-width: 400px;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
   }
   
   .signup-form h2 {
