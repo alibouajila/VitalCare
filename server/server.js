@@ -4,7 +4,7 @@ const cors = require("cors");
 const { verifyToken } = require("./middlewares/auth");
 const utilisateur = require("./routes/utilisateur");
 const FichePatient = require("./routes/fiche");
-const { router: notificationRoutes } = require("./routes/notifications"); // ✅ Correct import
+const { router: notificationRoutes } = require("./routes/notifications"); 
 const http = require("http"); // Import HTTP module
 const app = express();
 const server = http.createServer(app); // Create an HTTP server
@@ -48,17 +48,13 @@ app.use("/fiche", FichePatient);
 app.use('/notifications', notificationRoutes);
 
 // Connect to MongoDB
-mongoose.connect("mongodb://localhost:27017/Hospital", {})
+mongoose.connect("mongodb://localhost:27017/Vitalcare", {})
   .then(() => console.log("Connected to MongoDB"))
   .catch((error) => console.error("Error connecting to MongoDB:", error));
 
 // Verify Token Route
 app.get("/verify-token", verifyToken, (req, res) => { 
   res.status(200).json({ message: "Token is valid", admin: req.admin });
-});
-
-app.get("/", (req, res) => {
-  res.send("Hello, World!");
 });
 
 // Start the server
