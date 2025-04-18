@@ -72,7 +72,7 @@ const Signup = () => {
           <option value="anesthesiste">Anesthesiste</option>
         </select>
         <input
-          type="tel"
+          type="number"
           placeholder="Numéro de téléphone"
           value={num}
           onChange={(e) => setNum(e.target.value)}
