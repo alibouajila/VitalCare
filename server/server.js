@@ -5,10 +5,10 @@ const { verifyToken } = require("./middlewares/auth");
 const utilisateur = require("./routes/utilisateur");
 const FichePatient = require("./routes/fiche");
 const { router: notificationRoutes } = require("./routes/notifications"); 
-const http = require("http"); // Import HTTP module
+const http = require("http"); 
 const app = express();
-const server = http.createServer(app); // Create an HTTP server
-
+const server = http.createServer(app); 
+const Admin =require("./routes/admin"); // Import admin routes
 // Import User model
 const User = require("./models/utilisateur"); 
 
@@ -46,7 +46,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use("/user", utilisateur);
 app.use("/fiche", FichePatient);
 app.use('/notifications', notificationRoutes);
-
+app.use("/admin", Admin); 
 // Connect to MongoDB
 mongoose.connect("mongodb://localhost:27017/Vitalcare", {})
   .then(() => console.log("Connected to MongoDB"))

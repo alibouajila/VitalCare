@@ -13,7 +13,7 @@ const utilisateurSchema = new mongoose.Schema({
   },
   type: {
     type: String,
-    enum: ["medecin", "anesthesiste"],
+    enum: ["medecin", "anesthesiste","admin"],
     required: true
   },
   num: {

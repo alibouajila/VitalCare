@@ -46,7 +46,9 @@ router.post("/login", async (req, res) => {
     if (!utilisateur) {
       return res.status(404).json({ message: "Utilisateur not found" });
     }
-
+    if( utilisateur.type !== "medecin" && utilisateur.type !== "anesthesiste") {   
+      return res.status(403).json({ message: "Access denied" });
+    }
     const isMatch = await bcrypt.compare(password, utilisateur.password);
     if (!isMatch) {
       return res.status(400).json({ message: "Invalid credentials" });
