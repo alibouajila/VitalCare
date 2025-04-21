@@ -1,0 +1,41 @@
+.admin-navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background: #112d4e;
+  color: white;
+  position: fixed;
+  width: 99%;
+  top: 0;
+  left: -2vh;
+  z-index: 1000;
+}
+
+.admin-navbar .logo h2 {
+  margin: 0;
+  font-family: Verdana, sans-serif;
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+
+.nav-links a, .auth-btn {
+  text-decoration: none;
+  color: white;
+  font-size: 16px;
+  padding: 8px 14px;
+  border-radius: 5px;
+  transition: background 0.3s ease;
+  background-color: #4D55CC;
+  border: none;
+  cursor: pointer;
+}
+
+.nav-links a:hover, .auth-btn:hover {
+  background: #51a4c0;
+}
