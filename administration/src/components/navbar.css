@@ -2,7 +2,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 10px 20px;
+  padding: 2px 20px;
   background: #112d4e;
   color: white;
   position: fixed;
@@ -38,4 +38,11 @@
 
 .nav-links a:hover, .auth-btn:hover {
   background: #51a4c0;
+}
+.navicon:hover{
+  transform: scale(1.1);
+  cursor: pointer;
+}
+.navicon{
+    transition: transform 0.3s ease;
 }

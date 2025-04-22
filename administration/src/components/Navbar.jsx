@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import './navbar.css'; 
 function AdminNavbar() {
   const navigate = useNavigate();
@@ -8,14 +8,16 @@ function AdminNavbar() {
   useEffect(() => {
     const token = localStorage.getItem('adminToken');
     setIsLoggedIn(!!token);
-  }, []);
+  }, [navigate]);
 
   const handleLogout = () => {
     localStorage.removeItem('adminToken');
     setIsLoggedIn(false);
     navigate('/login');
   };
-
+const handleStaf = () => {
+  window.open('http://localhost:3000/', '_blank');
+}
   return (
     <nav className="admin-navbar">
       <div className="logo">
@@ -23,13 +25,38 @@ function AdminNavbar() {
       </div>
       <ul className="nav-links"> 
         <li>
-          <a href="http://localhost:3000" target="_blank" rel="noopener noreferrer">Medical staff</a>
+        <img
+                onClick={handleStaf}
+                className="navicon"
+                src="/assets/staff.png"
+                alt="Logout"
+                width="40"
+                height="40"
+              />
         </li>
         <li>
           {isLoggedIn ? (
-            <button onClick={handleLogout} className="auth-btn">Logout</button>
-          ) : (
-            <Link to="/login" className="auth-btn">Login</Link>
+            
+            <li>
+              <img
+                onClick={handleLogout}
+                className="navicon"
+                src="/assets/logout.png"
+                alt="Logout"
+                width="37"
+                height="37"
+              />
+            </li>          ) : (
+         <li>
+         <img
+           className="navicon"
+           src="/assets/login.png"
+           alt="Logout"
+            width="37"
+            height="37"
+            onClick={() => navigate('/login')}
+             />
+         </li>  
           )}
         </li>
       </ul>

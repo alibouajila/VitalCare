@@ -1,15 +1,16 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import "./dashboard.css";
 import { toast } from "react-toastify";
+
 const Dashboard = () => {
   const [verifiedUsers, setVerifiedUsers] = useState([]);
   const [notVerifiedUsers, setNotVerifiedUsers] = useState([]);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
-  const fetchUsers = async () => {
+  const fetchUsers = useCallback(async () => {
     const token = localStorage.getItem("adminToken");
     if (!token) {
       navigate("/login");
@@ -27,7 +28,6 @@ const Dashboard = () => {
         headers: { Authorization: `Bearer ${token}` },
       });
 
-      // Filter to only medecin or anesthesiste users
       const filterUser = (user) =>
         user.type === "medecin" || user.type === "anesthesiste";
 
@@ -39,7 +39,7 @@ const Dashboard = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [navigate]);
 
   const verifyUser = async (id) => {
     const token = localStorage.getItem("adminToken");
@@ -59,8 +59,9 @@ const Dashboard = () => {
 
   const deleteUser = async (id) => {
     const confirmDelete = window.confirm("Are you sure you want to delete this user? This action cannot be undone.");
-    if (!confirmDelete) return;   
-     const token = localStorage.getItem("adminToken");
+    if (!confirmDelete) return;
+
+    const token = localStorage.getItem("adminToken");
     try {
       await axios.delete(`http://localhost:3001/admin/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
@@ -75,7 +76,7 @@ const Dashboard = () => {
 
   useEffect(() => {
     fetchUsers();
-  }, []);
+  }, [fetchUsers]);
 
   return (
     <div className="dashboard-container">
