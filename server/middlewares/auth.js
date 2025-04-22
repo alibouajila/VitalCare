@@ -20,12 +20,13 @@ const verifyToken = (req, res, next) => {
     next();
   });
 };
-const  doctorOnly=(req, res, next)=>{
-  if (req.user && req.user.userType === 'doctor') {
+const adminOnly = (req, res, next) => {
+  if (req.user && req.user.type === 'admin') {
     next();
   } else {
-    return res.status(403).json({ message: 'Access denied: Doctor only' });
+    return res.status(403).json({ message: 'Access denied: Admin only' });
   }
-}
+};
 
-module.exports = { verifyToken , doctorOnly };
+
+module.exports = { verifyToken , adminOnly };

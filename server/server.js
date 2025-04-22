@@ -8,8 +8,7 @@ const { router: notificationRoutes } = require("./routes/notifications");
 const http = require("http"); 
 const app = express();
 const server = http.createServer(app); 
-const Admin =require("./routes/admin"); // Import admin routes
-// Import User model
+const Admin =require("./routes/admin"); 
 const User = require("./models/utilisateur"); 
 
 // Initialize Socket.io
@@ -20,11 +19,21 @@ const io = require("socket.io")(server, {
   }
 });
 
+
+const allowedOrigins = ["http://localhost:3000", "http://localhost:3002"];
+
 app.use(cors({
-  origin: "http://localhost:3000",
-  credentials: true,
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
+  credentials: true
 }));
-app.io = io;
+
+;app.io = io;
 // Socket.io connection handling
 io.on("connection", (socket) => {
   console.log("A user connected");

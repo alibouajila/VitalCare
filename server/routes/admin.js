@@ -1,11 +1,10 @@
 const express = require("express");
 const User = require("../models/utilisateur");
-const { doctorOnly } = require("../middlewares/auth");
+const { adminOnly } = require("../middlewares/auth");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-const {verifyToken} = require("../middlewares/auth"); 
 const router = express.Router();
-
+const { verifyToken } = require("../middlewares/auth");
 const ACCESS_TOKEN_SECRET = "user203u";
 
 router.post("/login", async (req, res) => {
@@ -35,7 +34,7 @@ router.post("/login", async (req, res) => {
   }
 });
 // Protect all routes with auth and doctorOnly middleware
-router.use(verifyToken, doctorOnly);
+router.use(verifyToken, adminOnly);
 // GET verified users
 router.get("/verified", async (req, res) => {
   try {

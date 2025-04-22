@@ -20,7 +20,7 @@ const Login = () => {
       });
 
       localStorage.setItem('adminToken', response.data.token);
-      window.location.href = '/admin/dashboard';
+      window.location.href = '/dashboard';
     } catch (err) {
       setError(err.response?.data?.message || 'Login failed');
     } finally {

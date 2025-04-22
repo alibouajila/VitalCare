@@ -19,7 +19,7 @@ function AdminNavbar() {
   return (
     <nav className="admin-navbar">
       <div className="logo">
-        <h2 style={{ color: '#00a8ff' }}> Admin Panel</h2>
+        <h2  style={{ color: '#00a8ff' }}> Admin Panel</h2>
       </div>
       <ul className="nav-links"> 
         <li>
