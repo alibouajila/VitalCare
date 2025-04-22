@@ -46,3 +46,9 @@
 .navicon{
     transition: transform 0.3s ease;
 }
+.logo a {
+  color: #00a8ff;
+  font-size: 24px;
+  text-decoration: none;
+  font-weight: bold;
+}

@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './navbar.css'; 
+import { Link } from 'react-router-dom';
 function AdminNavbar() {
   const navigate = useNavigate();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -21,7 +22,7 @@ const handleStaf = () => {
   return (
     <nav className="admin-navbar">
       <div className="logo">
-        <h2  style={{ color: '#00a8ff' }}> Admin Panel</h2>
+        <Link id="titre" to="/">Vitalcare</Link>
       </div>
       <ul className="nav-links"> 
         <li>
