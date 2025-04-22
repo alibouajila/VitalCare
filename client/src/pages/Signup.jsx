@@ -2,7 +2,7 @@ import React, {useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import api from "../utils/api"
 import "./Signup.css";
-
+import { toast } from "react-toastify";
 const Signup = () => {
   
   const [nom, setNom] = useState("");
@@ -38,8 +38,10 @@ const Signup = () => {
 
       if (response.status === 201) {
         console.log("Registration successful, navigating to login page...");
+        toast.success("Registration successful!");
         navigate("/login"); 
       } else {
+        toast.error("Registration failed. Please try again.");
         setError("Registration failed. Please try again.");
       }
     } catch (error) {

@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import api from "../utils/api"
 import "./Login.css";
 import { useEffect } from "react";
+import { toast } from "react-toastify";
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -26,7 +27,7 @@ useEffect(() => {
         { email, password },
         { withCredentials: true }
       );
-
+      toast.success("Login successful!");
       localStorage.setItem("accessToken", response.data.accessToken);
       const userType = response.data.type;
       if (userType === "medecin") {
@@ -36,7 +37,7 @@ useEffect(() => {
       } 
       window.dispatchEvent(new Event("storage"));
     } catch (error) {
-      setError(error.response?.data?.message || "Login failed");
+      toast.error(error.response?.data?.message || "Login failed");
     }
   };
 

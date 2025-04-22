@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import "./dashboard.css";
-
+import { toast } from "react-toastify";
 const Dashboard = () => {
   const [verifiedUsers, setVerifiedUsers] = useState([]);
   const [notVerifiedUsers, setNotVerifiedUsers] = useState([]);
@@ -49,21 +49,27 @@ const Dashboard = () => {
         {},
         { headers: { Authorization: `Bearer ${token}` } }
       );
+      toast.success("User verified successfully!");
       fetchUsers();
     } catch (err) {
       console.log(err);
+      toast.error("Verification failed.");
     }
   };
 
   const deleteUser = async (id) => {
-    const token = localStorage.getItem("adminToken");
+    const confirmDelete = window.confirm("Are you sure you want to delete this user? This action cannot be undone.");
+    if (!confirmDelete) return;   
+     const token = localStorage.getItem("adminToken");
     try {
       await axios.delete(`http://localhost:3001/admin/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
+      toast.success("User deleted successfully!");
       fetchUsers();
     } catch (err) {
       console.log(err);
+      toast.error("Failed to delete user.");
     }
   };
 
