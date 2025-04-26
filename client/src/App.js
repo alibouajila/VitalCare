@@ -10,15 +10,27 @@ import Footer from"./components/Footer"
 import ListeDesPatients from "./pages/ListeDesPatients";
 import Profile from "./pages/Profile";
 import Edit from "./pages/Edit";
-import { ToastContainer } from "react-toastify";
+import { ToastContainer,toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import "./App.css";
+import { useEffect } from "react";
 function App() {
+  useEffect(() => {
+    const handleClickOutside = () => {
+      toast.dismiss(); 
+    };
+
+    document.addEventListener('click', handleClickOutside);
+
+    return () => {
+      document.removeEventListener('click', handleClickOutside);
+    };
+  }, []);
+
   return (
     <Router>
       <Navbar />
-      <ToastContainer position="top-right" autoClose={3000} />
-
+      <ToastContainer position="top-right" autoClose={2000} closeOnClick={true}  />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
