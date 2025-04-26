@@ -32,6 +32,13 @@ router.post("/register", async (req, res) => {
     await utilisateur.save();
     res.status(201).json({ message: "Utilisateur created successfully" });
   } catch (error) {
+    if (num.length != 8) {
+      return res.status(400).json({ error: "Numéro  doit contenir 8 chiffres" });
+    }
+    if (error.code === 11000) { 
+      return res.status(400).json({ error: "Email already exists" });}
+
+
     res.status(400).json({ error: error.message });
   }
 });

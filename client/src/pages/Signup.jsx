@@ -41,11 +41,12 @@ const Signup = () => {
         toast.success("Registration successful!");
         navigate("/login"); 
       } else {
-        toast.error("Registration failed. Please try again.");
-        setError("Registration failed. Please try again.");
+        toast.error(response.data.error ||"Registration failed. Please try again.");
+        setError(response.data.error || "Registration failed. Please try again.");
       }
     } catch (error) {
-      setError(error?.response?.data?.message || "An error occurred. Please try again.");
+      setError(error?.response?.data?.error || "An error occurred. Please try again.");
+      toast.error(error?.response?.data?.error || "An error occurred. Please try again.");
     }
   };
 
