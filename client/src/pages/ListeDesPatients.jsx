@@ -33,6 +33,9 @@ navigate("/")
 
       if (response.status === 200) {
         setPatients((prevPatients) => prevPatients.filter((p) => p._id !== id));
+        const reponsee=await api.delete(`http://localhost:3001/notifications/fiche/${id}`, {
+          headers: { Authorization: `Bearer ${localStorage.getItem("accessToken")}` },
+        });
       }
     } catch (error) {
       console.error("Erreur lors de la suppression du patient:", error);
