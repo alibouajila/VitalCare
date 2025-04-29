@@ -48,7 +48,7 @@ router.delete("/delete/:id", verifyToken, async (req, res) => {
     if (!ficheToDelete) {
       return res.status(404).json({ message: "Dossier patient non trouvé." });
     }
-
+    
     res.status(200).json({ message: "Dossier patient supprimé avec succès." });
   } catch (error) {
     console.error("❌ Erreur lors de la suppression du dossier patient:", error);

@@ -5,7 +5,6 @@ function ListeDesPatients() {
   const [patients, setPatients] = useState([]);
   const [search, setSearch] = useState("");
   const navigate = useNavigate();
-
   useEffect(() => {
     const fetchPatients = async () => {
       try {

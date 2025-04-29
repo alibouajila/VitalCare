@@ -142,5 +142,23 @@ router.post("/:id/mark-read", async (req, res) => {
     res.status(500).json({ message: "Error marking notification as read" });
   }
 });
+// delete notification with specific fiche id 
+router.delete('/fiche/:id', verifyToken, async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    // Delete all notifications whose 'link' ends with the fiche ID
+    const regex = new RegExp(`${id}$`);
+    const result = await Notification.deleteMany({ link: { $regex: regex } });
+
+    res.json({
+      success: true,
+      message: `Fiche and ${result.deletedCount} related notifications deleted successfully`,
+    });
+  } catch (err) {
+    console.error("Error deleting fiche and notifications:", err);
+    res.status(500).json({ message: 'Server error' });
+  }
+});
 
 module.exports = { router, createNotification };

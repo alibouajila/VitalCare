@@ -25,6 +25,7 @@ function App() {
         <Navbar />
         <ToastContainer position="top-right" autoClose={2000} closeOnClick={true}  />
         <Routes>
+          <Route path="/" element={<Dashboard />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/login" element={<Login />} />
         </Routes>
